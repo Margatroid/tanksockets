@@ -10,3 +10,17 @@ sio.configure(function() {
     callback(null, true);
   });
 });
+
+sio.sockets.on('connection', function(client) {
+  client.userId = UUID();
+
+  client.emit('onconnected', { id: client.userId } );
+
+  console.log(Date() + ' ' + client.userId + ' connected.');
+
+  client.on('disconnect', function() {
+    console.log(Date() + ' ' + client.userId + ' disconnected.');
+  });
+
+});
+
