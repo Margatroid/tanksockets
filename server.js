@@ -1,5 +1,6 @@
-var uuid    = require('node-uuid');
-var app     = require('express')(),
+var uuid = require('node-uuid');
+
+var app  = require('express')(),
   server = require('http').createServer(app),
   sio    = require('socket.io').listen(server);
 
