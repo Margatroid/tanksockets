@@ -12,7 +12,7 @@ sio.configure(function() {
 });
 
 sio.sockets.on('connection', function(client) {
-  client.userId = UUID();
+  client.userId = uuid();
 
   client.emit('onconnected', { id: client.userId } );
 
