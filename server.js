@@ -1,9 +1,13 @@
-var express = require('express');
-var io      = require('socket.io');
 var uuid    = require('node-uuid');
-var app     = express();
+var app     = require('express')(),
+  server = require('http').createServer(app),
+  sio    = require('socket.io').listen(server);
 
-var sio = io.listen(app);
+server.listen(3000);
+
+app.get('/', function (req, res) {
+  res.sendfile(__dirname + '/index.html');
+});
 
 sio.configure(function() {
   sio.set('authorization', function(handshakeData, callback) {
