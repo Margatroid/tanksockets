@@ -3,10 +3,10 @@ var io      = require('socket.io');
 var uuid    = require('node-uuid');
 var app     = express();
 
-app.get('/', function(req, res){
-  res.send('Hello World');
+var sio = io.listen(app);
+
+sio.configure(function() {
+  sio.set('authorization', function(handshakeData, callback) {
+    callback(null, true);
+  });
 });
-
-app.listen(3000);
-
-console.log('Listening');
