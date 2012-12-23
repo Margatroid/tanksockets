@@ -5,10 +5,6 @@ var app     = require('express')(),
 
 server.listen(3000);
 
-app.get('/', function (req, res) {
-  res.sendfile(__dirname + '/index.html');
-});
-
 sio.configure(function() {
   sio.set('authorization', function(handshakeData, callback) {
     callback(null, true);
@@ -28,3 +24,10 @@ sio.sockets.on('connection', function(client) {
 
 });
 
+app.get('/', function (req, res) {
+  res.sendfile(__dirname + '/index.html');
+});
+
+app.get('/client.js', function (req, res) {
+  res.sendfile(__dirname + '/client.js');
+});
