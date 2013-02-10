@@ -13,7 +13,6 @@ socket.on('onconnected', function(data) {
 });
 
 var canvas;
-var context;
 var canvasSize = { height: 100, width: 100 }
 
 var bike = {
@@ -35,12 +34,21 @@ bike.move = function()
 };
 
 canvasHelper = {
-  blockSize: 5
+  blockSize: 5,
+  maxTiles: { height: 100, width: 100 }
 };
+
+canvasHelper.init = function()
+{
+  canvas = $('#canvas')[0];
+  canvas.width  = (this.blockSize * this.maxTiles.width);
+  canvas.height = (this.blockSize * this.maxTiles.height);
+  this.context  = canvas.getContext('2d');
+}
 
 canvasHelper.drawBike = function(bike)
 {
-  context.fillRect(
+  this.context.fillRect(
     bike.x * this.blockSize,
     bike.y * this.blockSize,
     this.blockSize,
@@ -51,10 +59,7 @@ canvasHelper.drawBike = function(bike)
 
 function init()
 {
-  canvas = $('#canvas')[0];
-  canvas.width  = (canvasHelper.blockSize * 100);
-  canvas.height = (canvasHelper.blockSize * 100);
-  context = canvas.getContext('2d');
+  canvasHelper.init();
 
   startTime = new Date();
 
