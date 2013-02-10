@@ -12,9 +12,6 @@ socket.on('onconnected', function(data) {
   console.log('Received UUID of ' + data.id + ' from socket.io');
 });
 
-var canvas;
-var canvasSize = { height: 100, width: 100 }
-
 var bike = {
   x: 0,
   y: 0,
