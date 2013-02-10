@@ -33,7 +33,7 @@ bike.move = function()
   }
 };
 
-canvasHelper = {
+var canvasHelper = {
   blockSize: 5,
   maxTiles: { height: 100, width: 100 }
 };
