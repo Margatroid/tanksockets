@@ -30,6 +30,19 @@ bike.move = function()
   }
 };
 
+bike.changeDirection = function(newDirection)
+{
+  if((this.direction == 'n' && newDirection == 's') ||
+    (this.direction == 's' && newDirection == 'n') ||
+    (this.direction == 'w' && newDirection == 'e') ||
+    (this.direction == 'e' && newDirection == 'w'))
+  {
+    return;
+  }
+
+  this.direction = newDirection;
+};
+
 var canvasHelper = {
   blockSize: 5,
   maxTiles: { height: 100, width: 100 }
@@ -53,17 +66,6 @@ canvasHelper.drawBike = function(bike)
   );
 };
 
-
-function init()
-{
-  canvasHelper.init();
-
-  startTime = new Date();
-
-  bikes.push(Object.create(bike));
-
-  gameLoop();
-}
 
 var startTime;
 var step = 1;
@@ -91,6 +93,45 @@ function gameLoop()
   });
 
   window.requestAnimationFrame(gameLoop);
+}
+
+var player = {
+  bike: null
+};
+
+player.init = function()
+{
+  this.bike = Object.create(bike);
+  bikes.push(this.bike);
+
+  this.addInputHandlers();
+};
+
+player.addInputHandlers = function()
+{
+  var bike = this.bike;
+  $(document).keypress(function(event)
+  {
+    switch(event.which)
+    {
+      case 119: bike.changeDirection('n'); break;
+      case 97:  bike.changeDirection('w'); break;
+      case 115: bike.changeDirection('s'); break;
+      case 100: bike.changeDirection('e'); break;
+    }
+  });
+};
+
+function init()
+{
+  canvasHelper.init();
+
+  startTime = new Date();
+
+  var localPlayer = Object.create(player);
+  localPlayer.init();
+
+  gameLoop();
 }
 
 $(document).ready(function(){
