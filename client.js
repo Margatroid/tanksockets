@@ -41,7 +41,7 @@ canvasHelper.init = function()
   canvas.width  = (this.blockSize * this.maxTiles.width);
   canvas.height = (this.blockSize * this.maxTiles.height);
   this.context  = canvas.getContext('2d');
-}
+};
 
 canvasHelper.drawBike = function(bike)
 {
