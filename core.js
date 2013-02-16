@@ -1,8 +1,4 @@
 (function(exports){
-  exports.test = function() {
-    return 'hello world';
-  };
-
   exports.bike = {
     x: 0,
     y: 0,
