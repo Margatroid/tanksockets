@@ -33,11 +33,6 @@ canvasHelper.drawBike = function(bike) {
   );
 };
 
-
-var startTime;
-var step = 1;
-var updateInterval = 50;
-
 function addInputHandlersToPlayer(player) {
   var bike = player.bike;
   $(document).keypress(function(event) {
@@ -53,7 +48,7 @@ function addInputHandlersToPlayer(player) {
 function init() {
   canvasHelper.init();
 
-  startTime = new Date();
+  core.startTime = new Date();
 
   var localPlayer = Object.create(core.player);
   localPlayer.init()

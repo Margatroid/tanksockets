@@ -47,8 +47,13 @@
   };
 
   // Shared game logic
+  exports.startTime = 0;
+
+  var step = 1;
+  var updateInterval = 50;
+
   exports.gameLoop = function() {
-    var currentTime    = new Date() - startTime;
+    var currentTime    = new Date() - exports.startTime;
     var nextUpdateTime = step * updateInterval;
 
     if(currentTime > nextUpdateTime) {
