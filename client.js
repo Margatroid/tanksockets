@@ -12,33 +12,6 @@ socket.on('onconnected', function(data) {
   console.log('Received UUID of ' + data.id + ' from socket.io');
 });
 
-var bike = {
-  x: 0,
-  y: 0,
-  direction: 'e',
-  color: '#000000'
-};
-
-bike.move = function() {
-  switch(this.direction) {
-    case 'n': this.y -= 1; break;
-    case 's': this.y += 1; break;
-    case 'w': this.x -= 1; break;
-    case 'e': this.x += 1; break;
-  }
-};
-
-bike.changeDirection = function(newDirection) {
-  if((this.direction == 'n' && newDirection == 's') ||
-    (this.direction == 's' && newDirection == 'n') ||
-    (this.direction == 'w' && newDirection == 'e') ||
-    (this.direction == 'e' && newDirection == 'w')) {
-    return;
-  }
-
-  this.direction = newDirection;
-};
-
 var canvasHelper = {
   blockSize: 5,
   maxTiles: { height: 100, width: 100 }
@@ -90,7 +63,7 @@ var player = {
 };
 
 player.init = function() {
-  this.bike = Object.create(bike);
+  this.bike = Object.create(core.bike);
   bikes.push(this.bike);
 
   this.addInputHandlers();
