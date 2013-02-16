@@ -4,6 +4,8 @@ var app  = require('express')(),
   server = require('http').createServer(app),
   sio    = require('socket.io').listen(server);
 
+var core = require('./core');
+
 server.listen(3000);
 
 sio.configure(function() {
@@ -27,6 +29,10 @@ sio.sockets.on('connection', function(client) {
 
 app.get('/', function (req, res) {
   res.sendfile(__dirname + '/index.html');
+});
+
+app.get('/core.js', function (req, res) {
+  res.sendfile(__dirname + '/core.js')
 });
 
 app.get('/client.js', function (req, res) {
