@@ -38,39 +38,27 @@ var startTime;
 var step = 1;
 var updateInterval = 50;
 
-var bikes = [];
-
 function gameLoop() {
   var currentTime    = new Date() - startTime;
   var nextUpdateTime = step * updateInterval;
 
   if(currentTime > nextUpdateTime) {
     step += 1;
-    $.each(bikes, function(index, bike) {
+    $.each(core.bikes, function(index, bike) {
       bike.move();
     });
   }
 
-  $.each(bikes, function(index, bike) {
+  $.each(core.bikes, function(index, bike) {
     canvasHelper.drawBike(bike);
   });
 
   window.requestAnimationFrame(gameLoop);
 }
 
-var player = {
-  bike: null
-};
 
-player.init = function() {
-  this.bike = Object.create(core.bike);
-  bikes.push(this.bike);
-
-  this.addInputHandlers();
-};
-
-player.addInputHandlers = function() {
-  var bike = this.bike;
+function addInputHandlersToPlayer(player) {
+  var bike = player.bike;
   $(document).keypress(function(event) {
     switch(event.which) {
       case 119: bike.changeDirection('n'); break;
@@ -79,15 +67,16 @@ player.addInputHandlers = function() {
       case 100: bike.changeDirection('e'); break;
     }
   });
-};
+}
 
 function init() {
   canvasHelper.init();
 
   startTime = new Date();
 
-  var localPlayer = Object.create(player);
-  localPlayer.init();
+  var localPlayer = Object.create(core.player);
+  localPlayer.init()
+  addInputHandlersToPlayer(localPlayer);
 
   gameLoop();
 }

@@ -1,4 +1,18 @@
 (function(exports){
+
+  //// Player
+  exports.player = {
+    bike: null
+  };
+
+  exports.player.init = function() {
+    this.bike = Object.create(exports.bike);
+    exports.bikes.push(this.bike);
+  };
+
+  //// Bike
+  exports.bikes = [];
+
   exports.bike = {
     x: 0,
     y: 0,
