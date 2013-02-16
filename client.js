@@ -38,25 +38,6 @@ var startTime;
 var step = 1;
 var updateInterval = 50;
 
-function gameLoop() {
-  var currentTime    = new Date() - startTime;
-  var nextUpdateTime = step * updateInterval;
-
-  if(currentTime > nextUpdateTime) {
-    step += 1;
-    $.each(core.bikes, function(index, bike) {
-      bike.move();
-    });
-  }
-
-  $.each(core.bikes, function(index, bike) {
-    canvasHelper.drawBike(bike);
-  });
-
-  window.requestAnimationFrame(gameLoop);
-}
-
-
 function addInputHandlersToPlayer(player) {
   var bike = player.bike;
   $(document).keypress(function(event) {
@@ -78,7 +59,7 @@ function init() {
   localPlayer.init()
   addInputHandlersToPlayer(localPlayer);
 
-  gameLoop();
+  core.gameLoop();
 }
 
 $(document).ready(function() {

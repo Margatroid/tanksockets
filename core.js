@@ -1,4 +1,10 @@
 (function(exports){
+  if(typeof window === 'undefined') {
+    exports.isServer = true;
+  }
+  else {
+    exports.isClient = true;
+  }
 
   //// Player
   exports.player = {
@@ -39,4 +45,29 @@
 
     this.direction = newDirection;
   };
+
+  // Shared game logic
+  exports.gameLoop = function() {
+    var currentTime    = new Date() - startTime;
+    var nextUpdateTime = step * updateInterval;
+
+    if(currentTime > nextUpdateTime) {
+      step += 1;
+      core.bikes.forEach(function(bike) {
+        bike.move();
+      });
+    }
+
+    if(exports.isClient) {
+      core.bikes.forEach(function(bike) {
+        canvasHelper.drawBike(bike);
+      });
+
+      window.requestAnimationFrame(exports.gameLoop);
+    }
+    else {
+      exports.gameLoop();
+    }
+  };
+
 })(typeof exports === 'undefined' ? this['core'] = {} : exports);
