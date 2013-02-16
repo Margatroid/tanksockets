@@ -37,10 +37,10 @@ function addInputHandlersToPlayer(player) {
   var bike = player.bike;
   $(document).keypress(function(event) {
     switch(event.which) {
-      case 119: bike.changeDirection('n'); break;
-      case 97:  bike.changeDirection('w'); break;
-      case 115: bike.changeDirection('s'); break;
-      case 100: bike.changeDirection('e'); break;
+      case 119: bike.changeDirection('n'); break; // W
+      case 97:  bike.changeDirection('w'); break; // A
+      case 115: bike.changeDirection('s'); break; // S
+      case 100: bike.changeDirection('e'); break; // D
     }
   });
 }
