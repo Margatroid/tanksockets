@@ -14,7 +14,7 @@ socket.on('onconnected', function(data) {
 
 var canvasHelper = {
   blockSize: 5,
-  maxTiles: { height: 100, width: 100 }
+  maxTiles: { height: 180, width: 350 }
 };
 
 canvasHelper.init = function() {
