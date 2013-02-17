@@ -43,6 +43,10 @@
       return;
     }
 
+    if(exports.isClient) {
+      socket.emit('changeDirection', { direction: newDirection });
+    }
+
     this.direction = newDirection;
   };
 
