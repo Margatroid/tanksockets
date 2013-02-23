@@ -69,6 +69,6 @@ $(document).ready(function() {
   init();
 
   $('#start_game').click(function() {
-    socket.emit('start_game');
+    socket.emit('startGame', {});
   });
 });
