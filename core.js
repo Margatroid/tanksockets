@@ -55,6 +55,9 @@
 
   var step = 1;
   var updateInterval = 50;
+  var endGame = false;
+
+  exports.stopLoop = function() { endGame = true };
 
   exports.gameLoop = function() {
     var currentTime    = new Date() - exports.startTime;
@@ -65,6 +68,10 @@
       core.bikes.forEach(function(bike) {
         bike.move();
       });
+    }
+
+    if(endGame) {
+      return;
     }
 
     if(exports.isClient) {
