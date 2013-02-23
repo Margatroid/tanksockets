@@ -44,7 +44,7 @@
     }
 
     if(exports.isClient) {
-      socket.emit('changeDirection', { direction: newDirection });
+      socket.emit('bikeInput', { direction: newDirection });
     }
 
     this.direction = newDirection;
