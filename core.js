@@ -65,7 +65,7 @@
   exports.endCurrentGame = function() { endGame = true };
 
   exports.reset = function() {
-    this.startTime  = 0;
+    this.startTime  = new Date();
     this.step       = 1;
     endGame         = false;
   };
