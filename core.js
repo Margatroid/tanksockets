@@ -65,7 +65,7 @@
 
     if(currentTime > nextUpdateTime) {
       step += 1;
-      core.bikes.forEach(function(bike) {
+      exports.bikes.forEach(function(bike) {
         bike.move();
       });
     }
@@ -75,14 +75,14 @@
     }
 
     if(exports.isClient) {
-      core.bikes.forEach(function(bike) {
+      exports.bikes.forEach(function(bike) {
         canvasHelper.drawBike(bike);
       });
 
       window.requestAnimationFrame(exports.gameLoop);
     }
     else {
-      exports.gameLoop();
+      setTimeout(exports.gameLoop, updateInterval / 2);
     }
   };
 
