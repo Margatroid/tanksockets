@@ -2,7 +2,7 @@ var uuid = require('node-uuid');
 
 var app  = require('express')(),
   server = require('http').createServer(app),
-  sio    = require('socket.io').listen(server);
+  sio    = require('socket.io').listen(server, { log: false });
 
 var core = require('./core');
 
@@ -12,6 +12,8 @@ sio.configure(function() {
   sio.set('authorization', function(handshakeData, callback) {
     callback(null, true);
   });
+
+  sio.set('log_level', 1);
 });
 
 var clients = [];
@@ -44,7 +46,6 @@ app.get('/client.js', function (req, res) {
 });
 
 function onClientConnect(newClient) {
-  core.startTime = new Date();
 
   clients[newClient.userId] = newClient;
 
@@ -52,6 +53,8 @@ function onClientConnect(newClient) {
   newClient.player.init();
 
   newClient.on('bikeInput', function(client) {
+    console.log('Client is ' + (core.step - client.step) + ' steps behind');
+    console.log('Start time is ' + core.startTime);
     newClient.player.bike.changeDirection(client.direction);
   });
 
