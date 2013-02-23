@@ -12,26 +12,17 @@ socket.on('onconnected', function(data) {
   console.log('Received UUID of ' + data.id + ' from socket.io');
 });
 
-var waiting = true;
-
 socket.on('gameState', function(state) {
-  // Start local game loop after first game state from server.
-  if(waiting) {
-    core.gameLoop();
-    waiting = false;
-    return;
-  }
-
   canvasHelper.processIncomingState(state);
-});
-
-canvasHelper.processIncomingState = function(state) {
-  
 });
 
 var canvasHelper = {
   blockSize: 5,
   maxTiles: { height: 180, width: 350 }
+};
+
+canvasHelper.processIncomingState = function(state) {
+  
 };
 
 canvasHelper.init = function() {
@@ -73,9 +64,9 @@ function init() {
 }
 
 $(document).ready(function() {
-  init();
-
   $('#start_game').click(function() {
     socket.emit('startGame', {});
+    init();
+    core.gameLoop();
   });
 });
