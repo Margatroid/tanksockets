@@ -20,6 +20,14 @@
     exports.bikes.push(this.bike);
   };
 
+  exports.player.getPlayerById = function(userId) {
+    exports.bikes.forEach(function(bike) {
+      if(bike.player.id == userId) {
+        return bike.player;
+      }
+    }
+  };
+
   //// Bike
   exports.bikes = [];
 
