@@ -54,6 +54,10 @@ function onClientConnect(newClient) {
   newClient.on('bikeInput', function(client) {
     newClient.player.bike.changeDirection(client.direction);
   });
+
+  newClient.on('startGame', function(client) {
+    startLoop();
+  });
 }
 
 function startLoop() {
