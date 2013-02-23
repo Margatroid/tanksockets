@@ -56,6 +56,10 @@ function onClientConnect(newClient) {
   core.gameLoop();
 }
 
+core.updateClientsGameLoop = function() {
+  clients.forEach(function(client){});
+};
+
 function onClientDisconnect(client) {
   core.stopLoop();
 }
