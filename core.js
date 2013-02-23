@@ -61,6 +61,12 @@
 
   exports.endCurrentGame = function() { endGame = true };
 
+  exports.reset = function() {
+    this.startTime  = 0;
+    this.step       = 1;
+    endGame         = false;
+  };
+
   exports.gameLoop = function() {
     var currentTime    = new Date() - exports.startTime;
     var nextUpdateTime = exports.step * updateInterval;
