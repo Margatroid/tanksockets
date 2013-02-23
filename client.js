@@ -19,7 +19,14 @@ socket.on('gameState', function(state) {
   if(waiting) {
     core.gameLoop();
     waiting = false;
+    return;
   }
+
+  canvasHelper.processIncomingState(state);
+});
+
+canvasHelper.processIncomingState = function(state) {
+  
 });
 
 var canvasHelper = {
