@@ -53,6 +53,7 @@ function onClientConnect(newClient) {
   newClient.player.init();
 
   newClient.on('bikeInput', function(client) {
+    console.log('Client: ' + client.step + ' Server: ' + core.step);
     console.log('Client is ' + (core.step - client.step) + ' steps behind');
     console.log('Start time is ' + core.startTime);
     newClient.player.bike.changeDirection(client.direction);
