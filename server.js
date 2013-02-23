@@ -21,6 +21,8 @@ sio.sockets.on('connection', function(client) {
 
   console.log(Date() + ' ' + client.userId + ' connected.');
 
+  onClientConnect(client);
+
   client.on('disconnect', function() {
     console.log(Date() + ' ' + client.userId + ' disconnected.');
   });
