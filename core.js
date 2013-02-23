@@ -13,6 +13,7 @@
 
   exports.player.init = function() {
     this.bike = Object.create(exports.bike);
+    this.bike.player = this;
     exports.bikes.push(this.bike);
   };
 
@@ -23,7 +24,8 @@
     x: 0,
     y: 0,
     direction: 'e',
-    color: '#000000'
+    color: '#000000',
+    player: null
   };
 
   exports.bike.move = function() {
