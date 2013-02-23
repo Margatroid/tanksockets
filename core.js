@@ -55,7 +55,8 @@
   // Shared game logic
   exports.startTime = 0;
 
-  var step = 1;
+  exports.step = 1;
+
   var updateInterval = 50;
   var endGame = false;
 
@@ -63,10 +64,10 @@
 
   exports.gameLoop = function() {
     var currentTime    = new Date() - exports.startTime;
-    var nextUpdateTime = step * updateInterval;
+    var nextUpdateTime = exports.step * updateInterval;
 
     if(currentTime > nextUpdateTime) {
-      step += 1;
+      exports.step += 1;
       exports.bikes.forEach(function(bike) {
         bike.move();
       });
