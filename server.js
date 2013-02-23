@@ -64,9 +64,7 @@ function startLoop() {
   core.startTime = new Date();
   core.step      = 1;
 
-  if(Object.keys(clients).length > 1) {
-    core.gameLoop();
-  }
+  core.gameLoop();
 }
 
 core.updateClientsGameLoop = function() {
