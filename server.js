@@ -70,6 +70,7 @@ function startLoop() {
 }
 
 core.updateClientsGameLoop = function() {
+  // For each connected client.
   for(var userId in clients) {
     if(clients.hasOwnProperty(userId)) {
       clients[userId].emit('gameState', core.gatherGameState());
