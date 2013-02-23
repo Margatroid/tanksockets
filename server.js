@@ -59,24 +59,28 @@ function onClientConnect(newClient) {
 }
 
 core.updateClientsGameLoop = function() {
-  clients.forEach(function(client){
-    client.emit('gameState', core.gatherGameState());
-  });
+  for(var userId in clients) {
+    if(clients.hasOwnProperty(userId)) {
+      clients[userId].emit('gameState', core.gatherGameState());
+    }
+  }
 };
 
 core.gatherGameState = function() {
   var players = [];
 
-  clients.forEach(function(client) {
-    var bike = client.player.bike;
+  for(var userId in clients) {
+    if(clients.hasOwnProperty(userId)) {
+      var bike = clients[userId].player.bike;
 
-    players.push({
-      x:          bike.x,
-      y:          bike.y,
-      direction:  bike.direction,
-      userId:     client.userId
-    });
-  });
+      players.push({
+        x:          bike.x,
+        y:          bike.y,
+        direction:  bike.direction,
+        userId:     userId
+      });
+    }
+  }
 
   return { step: core.step, players: players };
 };
