@@ -76,7 +76,7 @@ core.gatherGameState = function() {
     });
   });
 
-  return { core.step, players: players };
+  return { step: core.step, players: players };
 };
 
 function onClientDisconnect(client) {
