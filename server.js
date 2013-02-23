@@ -62,10 +62,25 @@ core.updateClientsGameLoop = function() {
   clients.forEach(function(client){});
 };
 
+core.gatherGameState = function() {
+  var players = [];
+
+  clients.forEach(function(client) {
+    var bike = client.player.bike;
+
+    players.push({
+      x:          bike.x,
+      y:          bike.y,
+      direction:  bike.direction,
+      userId:     client.userId
+    });
+  });
+
+  return { core.step, players: players };
+};
+
 function onClientDisconnect(client) {
   delete clients[client.userId];
   core.stopLoop();
 }
-
-
 
