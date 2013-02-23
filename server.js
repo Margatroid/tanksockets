@@ -14,6 +14,8 @@ sio.configure(function() {
   });
 });
 
+var clients = [];
+
 sio.sockets.on('connection', function(client) {
   client.userId = uuid();
 
@@ -41,13 +43,14 @@ app.get('/client.js', function (req, res) {
   res.sendfile(__dirname + '/client.js');
 });
 
-function onClientConnect(client) {
+function onClientConnect(newClient) {
   core.startTime = new Date();
-  var testPlayer = Object.create(core.player);
-  testPlayer.init();
 
-  client.on('bikeInput', function(client) {
-    testPlayer.bike.changeDirection(client.direction);
+  newClient.player = Object.create(core.player);
+  newClient.player.init();
+
+  newClient.on('bikeInput', function(client) {
+    newClient.player.bike.changeDirection(client.direction);
   });
 
   core.gameLoop();
