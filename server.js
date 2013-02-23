@@ -61,9 +61,7 @@ function onClientConnect(newClient) {
 }
 
 function startLoop() {
-  core.startTime = new Date();
-  core.step      = 1;
-
+  core.reset();
   core.gameLoop();
 }
 
