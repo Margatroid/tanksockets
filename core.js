@@ -59,7 +59,7 @@
   var updateInterval = 50;
   var endGame = false;
 
-  exports.stopLoop = function() { endGame = true };
+  exports.endCurrentGame = function() { endGame = true };
 
   exports.gameLoop = function() {
     var currentTime    = new Date() - exports.startTime;

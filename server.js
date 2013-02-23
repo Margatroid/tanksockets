@@ -89,6 +89,6 @@ core.gatherGameState = function() {
 
 function onClientDisconnect(client) {
   delete clients[client.userId];
-  core.stopLoop();
+  core.endCurrentGame();
 }
 
