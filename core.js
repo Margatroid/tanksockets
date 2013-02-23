@@ -8,7 +8,8 @@
 
   //// Player
   exports.player = {
-    bike: null
+    bike: null,
+    id:   null
   };
 
   exports.player.init = function() {
