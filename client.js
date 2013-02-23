@@ -29,7 +29,6 @@ var canvasHelper = {
 };
 
 canvasHelper.processIncomingState = function(state) {
-  
 };
 
 canvasHelper.init = function() {

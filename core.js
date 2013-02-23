@@ -61,7 +61,7 @@
   exports.startTime = 0;
   exports.step      = 1;
 
-  var updateInterval = 50;
+  var updateInterval = 500;
   var endGame = false;
 
   exports.endCurrentGame = function() { endGame = true };
