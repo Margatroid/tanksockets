@@ -82,18 +82,14 @@ core.updateClientsGameLoop = function() {
 core.gatherGameState = function() {
   var players = [];
 
-  for(var userId in clients) {
-    if(clients.hasOwnProperty(userId)) {
-      var bike = clients[userId].player.bike;
-
-      players.push({
-        x:          bike.x,
-        y:          bike.y,
-        direction:  bike.direction,
-        userId:     userId
-      });
-    }
-  }
+  core.bikes.forEach(function(bike) {
+    players.push({
+      x:          bike.x,
+      y:          bike.y,
+      direction:  bike.direction,
+      userId:     bike.player.id
+    });
+  });
 
   return { step: core.step, players: players };
 };
