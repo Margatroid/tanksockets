@@ -59,7 +59,9 @@ function onClientConnect(newClient) {
 }
 
 core.updateClientsGameLoop = function() {
-  clients.forEach(function(client){});
+  clients.forEach(function(client){
+    client.emit('gameState', core.gatherGameState());
+  });
 };
 
 core.gatherGameState = function() {
