@@ -14,7 +14,7 @@ function establishConnection() {
     console.log('Received UUID of ' + data.id + ' from socket.io');
 
     var localPlayer = Object.create(core.player);
-    localPlayer.init()
+    localPlayer.init(data.id);
     addInputHandlersToPlayer(localPlayer);
   });
 
