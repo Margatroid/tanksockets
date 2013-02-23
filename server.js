@@ -50,8 +50,8 @@ function onClientConnect(newClient) {
   clients[newClient.userId] = newClient;
 
   newClient.player    = Object.create(core.player);
-  newClient.player.id = newClient.id; // TODO use constructor
-  newClient.player.init();
+
+  newClient.player.init(newClient.userId);
 
   newClient.on('bikeInput', function(client) {
     console.log('Client: ' + client.step + ' Server: ' + core.step);
