@@ -46,6 +46,8 @@ app.get('/client.js', function (req, res) {
 function onClientConnect(newClient) {
   core.startTime = new Date();
 
+  clients[newClient.userId] = newClient;
+
   newClient.player = Object.create(core.player);
   newClient.player.init();
 
