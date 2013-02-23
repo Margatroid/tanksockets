@@ -27,7 +27,6 @@ sio.sockets.on('connection', function(client) {
     onClientDisconnect(client);
     console.log(Date() + ' ' + client.userId + ' disconnected.');
   });
-
 });
 
 app.get('/', function (req, res) {
@@ -44,7 +43,12 @@ app.get('/client.js', function (req, res) {
 
 function onClientConnect(client) {
   core.startTime  = new Date();
-  var localPlayer = Object.create(core.player);
+  var testPlayer = Object.create(core.player);
+  testPlayer.init();
+
+  client.on('bikeInput', function(client) {
+    testPlayer.bike.changeDirection(client.direction);
+  });
 
   core.gameLoop();
 }
