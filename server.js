@@ -38,3 +38,17 @@ app.get('/core.js', function (req, res) {
 app.get('/client.js', function (req, res) {
   res.sendfile(__dirname + '/client.js');
 });
+
+function onClientConnect(client) {
+  core.startTime  = new Date();
+  var localPlayer = Object.create(core.player);
+
+  core.gameLoop();
+}
+
+function onClientDisconnect(client) {
+  core.stopLoop();
+}
+
+
+
