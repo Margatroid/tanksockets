@@ -55,7 +55,9 @@ function onClientConnect(newClient) {
     newClient.player.bike.changeDirection(client.direction);
   });
 
-  core.gameLoop();
+  if(Object.keys(clients).length > 1) {
+    core.gameLoop();
+  }
 }
 
 core.updateClientsGameLoop = function() {
