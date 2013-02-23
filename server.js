@@ -42,7 +42,7 @@ app.get('/client.js', function (req, res) {
 });
 
 function onClientConnect(client) {
-  core.startTime  = new Date();
+  core.startTime = new Date();
   var testPlayer = Object.create(core.player);
   testPlayer.init();
 
