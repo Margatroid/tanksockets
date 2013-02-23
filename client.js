@@ -7,13 +7,15 @@
     window.requestAnimationFrame = requestAnimationFrame;
 })();
 
-function establishConnection() {
-  var socket = io.connect('/');
+var socket = io.connect('/');
 
+function establishConnection() {
   socket.on('onconnected', function(data) {
     console.log('Received UUID of ' + data.id + ' from socket.io');
 
-    initLocalPlayer(data.id);
+    var localPlayer = Object.create(core.player);
+    localPlayer.init()
+    addInputHandlersToPlayer(localPlayer);
   });
 
   socket.on('gameState', function(state) {
@@ -63,15 +65,14 @@ function init() {
 
   core.startTime = new Date();
 
-  var localPlayer = Object.create(core.player);
-  localPlayer.init()
-  addInputHandlersToPlayer(localPlayer);
+  socket.emit('startGame', {});
+  core.gameLoop();
 }
 
 $(document).ready(function() {
+  establishConnection();
+
   $('#start_game').click(function() {
-    socket.emit('startGame', {});
     init();
-    core.gameLoop();
   });
 });
