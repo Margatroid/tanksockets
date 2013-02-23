@@ -6,10 +6,11 @@
     exports.isClient = true;
   }
 
-  //// Player
+  //// Player - TODO: Check if null really is neccessary.
   exports.player = {
-    bike: null,
-    id:   null
+    bike:   null,
+    id:     null,
+    socket: null
   };
 
   exports.player.init = function(userId) {
