@@ -85,7 +85,7 @@
       window.requestAnimationFrame(exports.gameLoop);
     }
     else {
-      exports.gatherGameState();
+      exports.updateClientsGameLoop();
       setTimeout(exports.gameLoop, updateInterval / 2);
     }
   };
