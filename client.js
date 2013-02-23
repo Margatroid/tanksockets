@@ -12,6 +12,9 @@ socket.on('onconnected', function(data) {
   console.log('Received UUID of ' + data.id + ' from socket.io');
 });
 
+socket.on('gameState', function(state) {
+});
+
 var canvasHelper = {
   blockSize: 5,
   maxTiles: { height: 180, width: 350 }
