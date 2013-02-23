@@ -54,8 +54,7 @@
 
   // Shared game logic
   exports.startTime = 0;
-
-  exports.step = 1;
+  exports.step      = 1;
 
   var updateInterval = 50;
   var endGame = false;
