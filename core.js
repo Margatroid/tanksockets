@@ -12,7 +12,8 @@
     id:   null
   };
 
-  exports.player.init = function() {
+  exports.player.init = function(userId) {
+    this.id   = userId;
     this.bike = Object.create(exports.bike);
     this.bike.player = this;
     exports.bikes.push(this.bike);
