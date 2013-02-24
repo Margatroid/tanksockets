@@ -116,14 +116,7 @@ serverCore.announcePlayersBeforeGame = function() {
 
 
 function onClientDisconnect(client) {
-  // TODO: Find a better way to do this.
-  for(var bike in core.bikes) {
-    if(core.bikes[bike].player.id == client.userId) {
-      delete core.bikes[bike];
-    }
-  }
-
-  core.bikes = core.bikes.filter(function() { return true; });
+  core.removeBikeById(client.userId);
   core.endCurrentGame();
 }
 
