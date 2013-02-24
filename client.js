@@ -75,6 +75,16 @@ exports.bike.changeDirectionClient = function(newDirection) {
   });
 };
 
+
+exports.gameLoopClient = function() {
+  exports.bikes.forEach(function(bike) {
+    canvasHelper.drawBike(bike);
+  });
+
+  window.requestAnimationFrame(exports.gameLoop);
+};
+
+
 function init() {
   canvasHelper.init();
 

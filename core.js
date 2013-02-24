@@ -97,11 +97,7 @@
 
     // @TODO Move these to new methods in server.js and client.js
     if(exports.isClient) {
-      exports.bikes.forEach(function(bike) {
-        canvasHelper.drawBike(bike);
-      });
-
-      window.requestAnimationFrame(exports.gameLoop);
+      this.gameLoopClient();
     }
     else {
       exports.updateClientsGameLoop();
