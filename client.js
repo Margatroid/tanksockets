@@ -20,6 +20,12 @@ function establishConnection() {
     addInputHandlersToPlayer(localPlayer);
   });
 
+
+  socket.on('bikesBeforeStart', function(bikes) {
+    client.resetStartingPositions(bikes);
+  });
+
+
   socket.on('gameState', function(state) {
     canvasHelper.processIncomingState(state);
   });
@@ -93,6 +99,13 @@ function init() {
   socket.emit('startGame', {});
   core.gameLoop();
 }
+
+
+client = {};
+
+
+client.resetStartingPositions = function(bikes) {
+};
 
 
 $(document).ready(function() {
