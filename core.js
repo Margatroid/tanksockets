@@ -106,6 +106,15 @@
   };
 
 
+  exports.getBikeById = function(id) {
+    this.bikes.forEach(function(bike) {
+      if(bike.player.id == id) {
+        return bike;
+      }
+    });
+  };
+
+
   exports.removeBikeById = function(id) {
     // TODO: Find a better way to do this.
     for(var bike in this.bikes) {
