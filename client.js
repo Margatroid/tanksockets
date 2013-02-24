@@ -107,7 +107,8 @@ client.resetStartingPositions = function(state) {
   canvasHelper.init();
 
   console.log('Resetting starting positions');
-  this.addOtherPlayers(state.bikes);
+  console.log(state);
+  this.addOtherPlayers(state.players);
 };
 
 
