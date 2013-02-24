@@ -99,18 +99,8 @@ serverCore.gatherGameState = function() {
 
 
 serverCore.announcePlayersBeforeGame = function() {
-  var players = [];
-
   core.bikes.forEach(function(bike) {
-    players.push({
-      userId:     bike.player.id,
-      x:          bike.x,
-      y:          bike.y,
-      direction:  bike.direction,
-      color:      bike.color
-    });
-
-    bike.player.socket.emit('bikesBeforeStart', players);
+    bike.player.socket.emit('bikesBeforeStart', serverCore.gatherGameState());
   });
 };
 
