@@ -16,8 +16,6 @@ sio.configure(function() {
   sio.set('log_level', 1);
 });
 
-var clients = [];
-
 sio.sockets.on('connection', function(client) {
   client.userId = uuid();
 
@@ -46,12 +44,9 @@ app.get('/client.js', function (req, res) {
 });
 
 function onClientConnect(newClient) {
-
-  clients[newClient.userId] = newClient;
-
-  newClient.player    = Object.create(core.player);
-
+  newClient.player = Object.create(core.player);
   newClient.player.init(newClient.userId);
+  newClient.player.socket = newClient;
 
   newClient.on('bikeInput', function(client) {
     console.log('Client: ' + client.step + ' Server: ' + core.step);
@@ -72,7 +67,7 @@ function startLoop() {
 
 core.updateClientsGameLoop = function() {
   core.bikes.forEach(function(bike) {
-    bike.player.emit('gameState', core.gatherGameState());
+    bike.player.socket.emit('gameState', core.gatherGameState());
   });
 };
 
@@ -91,8 +86,16 @@ core.gatherGameState = function() {
   return { step: core.step, players: players };
 };
 
+
 function onClientDisconnect(client) {
-  delete clients[client.userId];
+  // TODO: Find a better way to do this.
+  for(var bike in core.bikes) {
+    if(core.bikes[bike].player.id == client.userId) {
+      delete core.bikes[bike];
+    }
+  }
+
+  core.bikes = core.bikes.filter(function() { return true; });
   core.endCurrentGame();
 }
 
