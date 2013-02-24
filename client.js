@@ -93,6 +93,7 @@ core.gameLoopClient = function() {
 
 function init() {
   socket.emit('startGame', {});
+  core.reset();
   core.gameLoop();
 }
 
@@ -101,7 +102,6 @@ client = {};
 
 
 client.resetStartingPositions = function(bikes) {
-  core.reset();
   canvasHelper.init();
 
   console.log('Resetting starting positions');
