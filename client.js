@@ -7,7 +7,9 @@
     window.requestAnimationFrame = requestAnimationFrame;
 })();
 
+
 var socket = io.connect('/');
+
 
 function establishConnection() {
   socket.on('onconnected', function(data) {
@@ -23,14 +25,17 @@ function establishConnection() {
   });
 }
 
+
 var canvasHelper = {
   blockSize: 5,
   maxTiles: { height: 180, width: 350 }
 };
 
+
 canvasHelper.processIncomingState = function(state) {
   console.log(state);
 };
+
 
 canvasHelper.init = function() {
   canvas = $('#canvas')[0];
@@ -38,6 +43,7 @@ canvasHelper.init = function() {
   canvas.height = (this.blockSize * this.maxTiles.height);
   this.context  = canvas.getContext('2d');
 };
+
 
 canvasHelper.drawBike = function(bike) {
   this.context.fillRect(
@@ -47,6 +53,7 @@ canvasHelper.drawBike = function(bike) {
     this.blockSize
   );
 };
+
 
 function addInputHandlersToPlayer(player) {
   var bike = player.bike;
@@ -60,6 +67,7 @@ function addInputHandlersToPlayer(player) {
   });
 }
 
+
 function init() {
   canvasHelper.init();
 
@@ -68,6 +76,7 @@ function init() {
   socket.emit('startGame', {});
   core.gameLoop();
 }
+
 
 $(document).ready(function() {
   establishConnection();

@@ -6,12 +6,14 @@
     exports.isClient = true;
   }
 
+
   //// Player - TODO: Check if null really is neccessary.
   exports.player = {
     bike:   null,
     id:     null,
     socket: null
   };
+
 
   exports.player.init = function(userId) {
     this.id   = userId;
@@ -20,8 +22,10 @@
     exports.bikes.push(this.bike);
   };
 
+
   //// Bike
   exports.bikes = [];
+
 
   exports.bike = {
     x: 0,
@@ -31,6 +35,7 @@
     player: null
   };
 
+
   exports.bike.move = function() {
     switch(this.direction) {
       case 'n': this.y -= 1; break;
@@ -39,6 +44,7 @@
       case 'e': this.x += 1; break;
     }
   };
+
 
   exports.bike.changeDirection = function(newDirection) {
     if((this.direction == 'n' && newDirection == 's') ||
@@ -58,6 +64,7 @@
     this.direction = newDirection;
   };
 
+
   // Shared game logic
   exports.startTime = 0;
   exports.step      = 1;
@@ -65,13 +72,16 @@
   var updateInterval = 500;
   var endGame = false;
 
+
   exports.endCurrentGame = function() { endGame = true };
+
 
   exports.reset = function() {
     this.startTime  = new Date();
     this.step       = 1;
     endGame         = false;
   };
+
 
   exports.gameLoop = function() {
     var currentTime    = new Date() - exports.startTime;

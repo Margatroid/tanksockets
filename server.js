@@ -16,6 +16,7 @@ sio.configure(function() {
   sio.set('log_level', 1);
 });
 
+
 sio.sockets.on('connection', function(client) {
   client.userId = uuid();
 
@@ -31,6 +32,7 @@ sio.sockets.on('connection', function(client) {
   });
 });
 
+
 app.get('/', function (req, res) {
   res.sendfile(__dirname + '/index.html');
 });
@@ -42,6 +44,7 @@ app.get('/core.js', function (req, res) {
 app.get('/client.js', function (req, res) {
   res.sendfile(__dirname + '/client.js');
 });
+
 
 function onClientConnect(newClient) {
   newClient.player = Object.create(core.player);
@@ -60,16 +63,19 @@ function onClientConnect(newClient) {
   });
 }
 
+
 function startLoop() {
   core.reset();
   core.gameLoop();
 }
+
 
 core.updateClientsGameLoop = function() {
   core.bikes.forEach(function(bike) {
     bike.player.socket.emit('gameState', core.gatherGameState());
   });
 };
+
 
 core.gatherGameState = function() {
   var players = [];
