@@ -107,11 +107,11 @@
 
 
   exports.getBikeById = function(id) {
-    this.bikes.forEach(function(bike) {
-      if(bike.player.id == id) {
-        return bike;
+    for(var bike in this.bikes) {
+      if(this.bikes[bike].player.id == id) {
+        return this.bikes[bike];
       }
-    });
+    }
   };
 
 
