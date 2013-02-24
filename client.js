@@ -44,8 +44,21 @@ var canvasHelper = {
 };
 
 
+// TODO Add interpolation somehow.
 canvasHelper.processIncomingState = function(state) {
-  console.log(state);
+  var ahead = core.step - state.step;
+  console.log('We are ' + ahead + ' steps ahead of server. ' +
+    'Local: ' + core.step + ' Server: ' + state.step);
+
+  state.players.forEach(function(bike) {
+    if(bike.userId != client.player.id) {
+      var bikeToUpdate = core.getBikeById(bike.userId);
+
+      bikeToUpdate.x = bike.x;
+      bikeToUpdate.y = bike.y;
+      bikeToUpdate.direction = bike.direction;
+    }
+  });
 };
 
 
