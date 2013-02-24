@@ -100,7 +100,7 @@
       exports.gameLoopClient();
     }
     else {
-      server.updateClientsGameLoop();
+      serverCore.updateClientsGameLoop();
       setTimeout(exports.gameLoop, updateInterval / 2);
     }
   };
