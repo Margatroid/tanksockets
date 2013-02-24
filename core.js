@@ -105,4 +105,17 @@
     }
   };
 
+
+  exports.removeBikeById = function(id) {
+    // TODO: Find a better way to do this.
+    for(var bike in this.bikes) {
+      if(this.bikes[bike].player.id == id) {
+        delete this.bikes[bike];
+      }
+    }
+
+    this.bikes = this.bikes.filter(function() { return true; });
+  };
+
+
 })(typeof exports === 'undefined' ? this['core'] = {} : exports);
