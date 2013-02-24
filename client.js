@@ -107,7 +107,7 @@ client.resetStartingPositions = function(bikes) {
   canvasHelper.init();
 
   console.log('Resetting starting positions');
-  console.log(bikes);
+  this.addOtherPlayers(bikes);
 };
 
 
@@ -119,6 +119,15 @@ client.addOtherPlayers = function(bikes) {
     }
   });
 };
+
+
+client.removeOtherPlayers = function() {
+  core.bikes.forEach(function(bike) {
+    if(bike.userId != client.player.id) {
+      core.removeBikeById(bike.userId);
+    }
+  });
+}
 
 
 $(document).ready(function() {
