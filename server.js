@@ -96,6 +96,13 @@ serverCore.gatherGameState = function() {
 };
 
 
+serverCore.announcePlayersBeforeGame = function() {
+  core.bikes.forEach(function(bike) {
+    bike.player.socket.emit('bikesBeforeStart', core.bikes);
+  });
+};
+
+
 function onClientDisconnect(client) {
   // TODO: Find a better way to do this.
   for(var bike in core.bikes) {
