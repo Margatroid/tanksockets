@@ -7,9 +7,9 @@
     window.requestAnimationFrame = requestAnimationFrame;
 })();
 
+var client = {};
 
 var socket = io.connect('/');
-
 
 function establishConnection() {
   socket.on('onconnected', function(data) {
@@ -18,6 +18,8 @@ function establishConnection() {
     var localPlayer = Object.create(core.player);
     localPlayer.init(data.id);
     addInputHandlersToPlayer(localPlayer);
+
+    client.player = localPlayer;
   });
 
   socket.on('bikesBeforeStart', function(bikes) {
@@ -28,8 +30,10 @@ function establishConnection() {
     canvasHelper.processIncomingState(state);
   });
 
-  socket.on('startGame', function() {
-    client.init();
+  socket.on('startGame', function(data) {
+    if(data.initiatingPlayer.id != client.player.id) {
+      socket.client.init();
+    }
   };
 }
 
@@ -93,14 +97,7 @@ core.gameLoopClient = function() {
 };
 
 
-client = {};
-
-
-client.init = function(fromServer) {
-  if(fromServer) {
-    socket.emit('startGame', {});
-  }
-
+client.init = function() {
   core.reset();
   core.gameLoop();
 };
@@ -118,6 +115,7 @@ $(document).ready(function() {
   establishConnection();
 
   $('#start_game').click(function() {
-    client.init(false);
+    socket.emit('startGame', {});
+    client.init();
   });
 });
