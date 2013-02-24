@@ -20,15 +20,17 @@ function establishConnection() {
     addInputHandlersToPlayer(localPlayer);
   });
 
-
   socket.on('bikesBeforeStart', function(bikes) {
     client.resetStartingPositions(bikes);
   });
 
-
   socket.on('gameState', function(state) {
     canvasHelper.processIncomingState(state);
   });
+
+  socket.on('startGame', function() {
+    client.init();
+  };
 }
 
 
@@ -94,8 +96,11 @@ core.gameLoopClient = function() {
 client = {};
 
 
-client.init = function() {
-  socket.emit('startGame', {});
+client.init = function(fromServer) {
+  if(fromServer) {
+    socket.emit('startGame', {});
+  }
+
   core.reset();
   core.gameLoop();
 };
@@ -113,6 +118,6 @@ $(document).ready(function() {
   establishConnection();
 
   $('#start_game').click(function() {
-    client.init();
+    client.init(false);
   });
 });
