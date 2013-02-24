@@ -68,20 +68,20 @@ function addInputHandlersToPlayer(player) {
 }
 
 
-exports.bike.changeDirectionClient = function(newDirection) {
+core.bike.changeDirectionClient = function(newDirection) {
   socket.emit('bikeInput', {
     direction:  newDirection,
-    step:       exports.step
+    step:       core.step
   });
 };
 
 
-exports.gameLoopClient = function() {
-  exports.bikes.forEach(function(bike) {
+core.gameLoopClient = function() {
+  core.bikes.forEach(function(bike) {
     canvasHelper.drawBike(bike);
   });
 
-  window.requestAnimationFrame(exports.gameLoop);
+  window.requestAnimationFrame(core.gameLoop);
 };
 
 
