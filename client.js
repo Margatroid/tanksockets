@@ -103,6 +103,9 @@ client = {};
 client.resetStartingPositions = function(bikes) {
   core.reset();
   canvasHelper.init();
+
+  console.log('Resetting starting positions');
+  console.log(bikes);
 };
 
 
