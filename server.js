@@ -61,6 +61,7 @@ function onClientConnect(newClient) {
   serverCore.announcePlayersBeforeGame();
 
   newClient.on('startGame', function(client) {
+    serverCore.tellClientsToStartLoop(client.userId);
     startLoop();
   });
 }
@@ -73,6 +74,15 @@ function startLoop() {
 
 
 serverCore = {};
+
+
+serverCore.tellClientsToStartLoop = function(fromUserId) {
+  var data = { initiatingPlayerId: fromUserId };
+
+  core.bikes.forEach(function(bike) {
+    bike.player.socket.emit('startGame', data);
+  });
+};
 
 
 serverCore.updateClientsGameLoop = function() {
