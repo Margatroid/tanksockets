@@ -111,6 +111,16 @@ client.resetStartingPositions = function(bikes) {
 };
 
 
+client.addOtherPlayers = function(bikes) {
+  bikes.forEach(function(bike) {
+    if(bike.userId != client.player.id) {
+      enemyPlayer = Object.create(core.player);
+      enemyPlayer.init(bike.userId);
+    }
+  });
+};
+
+
 $(document).ready(function() {
   establishConnection();
 
