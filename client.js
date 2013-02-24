@@ -68,6 +68,13 @@ function addInputHandlersToPlayer(player) {
 }
 
 
+exports.bike.changeDirectionClient = function(newDirection) {
+  socket.emit('bikeInput', {
+    direction:  newDirection,
+    step:       exports.step
+  });
+};
+
 function init() {
   canvasHelper.init();
 
