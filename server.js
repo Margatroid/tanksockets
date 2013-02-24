@@ -58,6 +58,8 @@ function onClientConnect(newClient) {
     newClient.player.bike.changeDirection(client.direction);
   });
 
+  serverCore.announcePlayersBeforeGame();
+
   newClient.on('startGame', function(client) {
     startLoop();
   });
@@ -97,8 +99,18 @@ serverCore.gatherGameState = function() {
 
 
 serverCore.announcePlayersBeforeGame = function() {
+  var players = [];
+
   core.bikes.forEach(function(bike) {
-    bike.player.socket.emit('bikesBeforeStart', core.bikes);
+    players.push({
+      userId:     bike.player.id,
+      x:          bike.x,
+      y:          bike.y,
+      direction:  bike.direction,
+      color:      bike.color
+    });
+
+    bike.player.socket.emit('bikesBeforeStart', players);
   });
 };
 
