@@ -113,6 +113,6 @@ $(document).ready(function() {
   establishConnection();
 
   $('#start_game').click(function() {
-    init();
+    client.init();
   });
 });
