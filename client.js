@@ -92,10 +92,6 @@ core.gameLoopClient = function() {
 
 
 function init() {
-  canvasHelper.init();
-
-  core.startTime = new Date();
-
   socket.emit('startGame', {});
   core.gameLoop();
 }
@@ -105,6 +101,8 @@ client = {};
 
 
 client.resetStartingPositions = function(bikes) {
+  core.reset();
+  canvasHelper.init();
 };
 
 
