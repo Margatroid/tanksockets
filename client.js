@@ -22,8 +22,8 @@ function establishConnection() {
     client.player = localPlayer;
   });
 
-  socket.on('bikesBeforeStart', function(bikes) {
-    client.resetStartingPositions(bikes);
+  socket.on('bikesBeforeStart', function(state) {
+    client.resetStartingPositions(state);
   });
 
   socket.on('gameState', function(state) {
@@ -103,11 +103,11 @@ client.init = function() {
 };
 
 
-client.resetStartingPositions = function(bikes) {
+client.resetStartingPositions = function(state) {
   canvasHelper.init();
 
   console.log('Resetting starting positions');
-  this.addOtherPlayers(bikes);
+  this.addOtherPlayers(state.bikes);
 };
 
 
