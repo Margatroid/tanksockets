@@ -70,13 +70,6 @@ function startLoop() {
 }
 
 
-core.updateClientsGameLoop = function() {
-  core.bikes.forEach(function(bike) {
-    bike.player.socket.emit('gameState', core.gatherGameState());
-  });
-};
-
-
 core.gatherGameState = function() {
   var players = [];
 
@@ -90,6 +83,16 @@ core.gatherGameState = function() {
   });
 
   return { step: core.step, players: players };
+};
+
+
+server = {};
+
+
+server.updateClientsGameLoop = function() {
+  core.bikes.forEach(function(bike) {
+    bike.player.socket.emit('gameState', core.gatherGameState());
+  });
 };
 
 
