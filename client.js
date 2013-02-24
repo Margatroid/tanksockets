@@ -31,10 +31,10 @@ function establishConnection() {
   });
 
   socket.on('startGame', function(data) {
-    if(data.initiatingPlayer.id != client.player.id) {
-      socket.client.init();
+    if(data.initiatingPlayerId != client.player.id) {
+      client.init();
     }
-  };
+  });
 }
 
 
