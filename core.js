@@ -97,7 +97,7 @@
 
     // @TODO Move these to new methods in server.js and client.js
     if(exports.isClient) {
-      this.gameLoopClient();
+      exports.gameLoopClient();
     }
     else {
       exports.updateClientsGameLoop();
