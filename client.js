@@ -91,14 +91,15 @@ core.gameLoopClient = function() {
 };
 
 
-function init() {
+client = {};
+
+
+client.init = function() {
   socket.emit('startGame', {});
   core.reset();
   core.gameLoop();
-}
+};
 
-
-client = {};
 
 
 client.resetStartingPositions = function(bikes) {
