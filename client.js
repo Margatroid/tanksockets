@@ -154,6 +154,5 @@ $(document).ready(function() {
 
   $('#start_game').click(function() {
     socket.emit('startGame', {});
-    client.init();
   });
 });
