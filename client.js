@@ -50,17 +50,19 @@ canvasHelper.processIncomingState = function(state) {
     'Local: ' + core.step + ' Server: ' + state.step);
 
   stateBuffer[state.step] = state;
-  /*
-  state.players.forEach(function(bike) {
-    if(bike.userId != client.player.id) {
-      var bikeToUpdate = core.getBikeById(bike.userId);
 
-      bikeToUpdate.x = bike.x;
-      bikeToUpdate.y = bike.y;
-      bikeToUpdate.direction = bike.direction;
-    }
+  this.setClientPositionsByState(state);
+};
+
+
+canvasHelper.setClientPositionsByState = function(state) {
+  state.players.forEach(function(bike) {
+    var bikeToUpdate = core.getBikeById(bike.userId);
+
+    bikeToUpdate.x = bike.x;
+    bikeToUpdate.y = bike.y;
+    bikeToUpdate.direction = bike.direction;
   });
-  */
 };
 
 
