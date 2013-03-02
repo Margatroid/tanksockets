@@ -87,9 +87,7 @@
 
     if(currentTime > nextUpdateTime) {
       exports.step += 1;
-      exports.bikes.forEach(function(bike) {
-        bike.move();
-      });
+      exports.moveAllBikes();
     }
 
     if(endGame) {
@@ -104,6 +102,13 @@
       serverCore.updateClientsGameLoop();
       setTimeout(exports.gameLoop, updateInterval / 2);
     }
+  };
+
+
+  exports.moveAllBikes = function() {
+    exports.bikes.forEach(function(bike) {
+      bike.move();
+    });
   };
 
 
