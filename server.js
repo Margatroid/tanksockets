@@ -45,6 +45,7 @@ app.get('/client.js', function (req, res) {
   res.sendfile(__dirname + '/client.js');
 });
 
+var hasStarted = false;
 
 function onClientConnect(newClient) {
   newClient.player = Object.create(core.player);
@@ -65,7 +66,6 @@ function onClientConnect(newClient) {
     serverCore.tellClientsToStartLoop(client.userId);
   });
 
-  var hasStarted = false;
 
   newClient.on('startServerLoop', function() {
     if(!hasStarted) {
