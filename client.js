@@ -51,6 +51,7 @@ canvasHelper.processIncomingState = function(state) {
   console.log('We are ' + ahead + ' steps ahead of server. ' +
     'Local: ' + core.step + ' Server: ' + state.step);
 
+  stateBuffer[state.step] = state;
   /*
   state.players.forEach(function(bike) {
     if(bike.userId != client.player.id) {
