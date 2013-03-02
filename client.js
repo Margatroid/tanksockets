@@ -58,7 +58,7 @@ canvasHelper.processIncomingState = function(state) {
 canvasHelper.checkBuffer = function() {
   var lastState = this.stateBuffer.pop();
 
-  if(lastState.step >= core.step) {
+  if(lastState.step > core.step) {
     core.moveAllBikes();
   }
 };
