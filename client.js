@@ -31,9 +31,7 @@ function establishConnection() {
   });
 
   socket.on('startGame', function(data) {
-    if(data.initiatingPlayerId != client.player.id) {
-      client.init();
-    }
+    client.init();
   });
 }
 
