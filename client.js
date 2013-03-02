@@ -40,7 +40,8 @@ function establishConnection() {
 
 var canvasHelper = {
   blockSize: 5,
-  maxTiles: { height: 180, width: 350 }
+  maxTiles: { height: 180, width: 350 },
+  stateBuffer: []
 };
 
 
@@ -50,6 +51,7 @@ canvasHelper.processIncomingState = function(state) {
   console.log('We are ' + ahead + ' steps ahead of server. ' +
     'Local: ' + core.step + ' Server: ' + state.step);
 
+  /*
   state.players.forEach(function(bike) {
     if(bike.userId != client.player.id) {
       var bikeToUpdate = core.getBikeById(bike.userId);
@@ -59,6 +61,7 @@ canvasHelper.processIncomingState = function(state) {
       bikeToUpdate.direction = bike.direction;
     }
   });
+  */
 };
 
 
