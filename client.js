@@ -104,6 +104,7 @@ core.bike.changeDirectionClient = function(newDirection) {
 core.gameLoopClient = function() {
   $('#debug').text('X: ' + client.player.bike.x +
       ' Y: ' + client.player.bike.y);
+
   core.bikes.forEach(function(bike) {
     canvasHelper.drawBike(bike);
   });
