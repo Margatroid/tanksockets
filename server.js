@@ -61,8 +61,17 @@ function onClientConnect(newClient) {
   serverCore.announcePlayersBeforeGame();
 
   newClient.on('startGame', function(client) {
+    hasStarted = false;
     serverCore.tellClientsToStartLoop(client.userId);
-    startLoop();
+  });
+
+  var hasStarted = false;
+
+  newClient.on('startServerLoop', function() {
+    if(!hasStarted) {
+      hasStarted = true;
+      startLoop();
+    }
   });
 }
 

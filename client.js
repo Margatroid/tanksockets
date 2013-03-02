@@ -118,6 +118,7 @@ core.gameLoopClient = function() {
 
 
 client.init = function() {
+  socket.emit('startServerLoop', {});
   core.reset();
   core.gameLoop();
 };
