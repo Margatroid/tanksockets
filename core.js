@@ -47,7 +47,10 @@
 
 
   exports.bike.changeDirection = function(newDirection) {
-    console.log('Changing to ' + newDirection + ' at X: ' + this.x + ', ' + this.y);
+    if(this.direction == newDirection) {
+      return;
+    }
+
     if((this.direction == 'n' && newDirection == 's') ||
       (this.direction == 's' && newDirection == 'n') ||
       (this.direction == 'w' && newDirection == 'e') ||
