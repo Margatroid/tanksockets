@@ -46,8 +46,8 @@ var canvasHelper = {
 // TODO Add interpolation somehow.
 canvasHelper.processIncomingState = function(state) {
   var ahead = core.step - state.step;
-  console.log('We are ' + ahead + ' steps ahead of server. ' +
-    'Local: ' + core.step + ' Server: ' + state.step);
+  //console.log('We are ' + ahead + ' steps ahead of server. ' +
+  //  'Local: ' + core.step + ' Server: ' + state.step);
 
   this.stateBuffer[state.step] = state;
 
