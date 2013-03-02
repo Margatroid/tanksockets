@@ -55,6 +55,15 @@ canvasHelper.processIncomingState = function(state) {
 };
 
 
+canvasHelper.checkBuffer = function() {
+  var lastState = this.stateBuffer.pop();
+
+  if(lastState.step >= core.step) {
+    core.moveAllBikes();
+  }
+};
+
+
 canvasHelper.setClientPositionsByState = function(state) {
   state.players.forEach(function(bike) {
     var bikeToUpdate = core.getBikeById(bike.userId);

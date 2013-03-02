@@ -87,7 +87,13 @@
 
     if(currentTime > nextUpdateTime) {
       exports.step += 1;
-      exports.moveAllBikes();
+
+      if(exports.isClient) {
+        canvasHelper.checkBuffer();
+      }
+      else {
+        exports.moveAllBikes();
+      }
     }
 
     if(endGame) {
