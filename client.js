@@ -26,5 +26,15 @@ $(document).ready(function() {
 
 
 function Graphics() {
-  var canvas = new fabric.Canvas('canvas');
+  var canvas = new fabric.Canvas('canvas', { backgroundColor: '#EDE3BB' });
+
+  var tank = new fabric.Rect({
+    left: 600,
+    top: 300,
+    fill: 'red',
+    width: 10,
+    height: 15,
+  });
+
+  canvas.add(tank);
 };
