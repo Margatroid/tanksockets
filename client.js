@@ -15,8 +15,16 @@ function establishConnection() {
   });
 }
 
-var client = {};
-
 $(document).ready(function() {
   establishConnection();
+
+  Graphics = new Graphics();
 });
+
+
+///////////////////////////////////////////////////////////////////////////////
+
+
+function Graphics() {
+  var canvas = new fabric.Canvas('canvas');
+};
