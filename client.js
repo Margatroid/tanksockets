@@ -28,12 +28,23 @@ $(document).ready(function() {
 function Graphics() {
   var canvas = new fabric.Canvas('canvas', { backgroundColor: '#EDE3BB' });
 
-  var tank = new fabric.Rect({
-    left: 600,
-    top: 300,
+  var hull = new fabric.Rect({
     fill: 'red',
-    width: 10,
-    height: 15,
+    width: 20,
+    height: 30,
+  });
+
+  var turret = new fabric.Rect({
+    top:    -10,
+    width:  5,
+    height: 20,
+    fill:   'black',
+    angle:  0
+  });
+
+  var tank = new fabric.Group([ hull, turret ], {
+    left: 600,
+    top:  300,
   });
 
   canvas.add(tank);
