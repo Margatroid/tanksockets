@@ -16,7 +16,23 @@ function Player(uuid) {
   this.y    = 0;
   this.name = _uuid;
 
+
   // Privileged method to damage this player.
   this.damage = function(damage) { _hp -= damage };
 }
+
+
+Player.prototype.move = function(direction) {
+  newX = this.x;
+  newY = this.y;
+
+  switch(direction) {
+    case 'n': newY -= 1; break;
+    case 's': newY += 1; break;
+    case 'w': newX -= 1; break;
+    case 'e': newX += 1; break;
+  }
+
+
+};
 
