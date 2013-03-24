@@ -7,5 +7,12 @@
 
 
 function Player(uuid) {
-  this.uuid = uuid;
+  // Private. Player UUID.
+  var _uuid = uuid;
+
+  // Publicly accessible player attributes.
+  this.x    = 0;
+  this.y    = 0;
+  this.name = _uuid;
 }
+
