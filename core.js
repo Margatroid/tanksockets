@@ -6,4 +6,6 @@
 })(typeof exports === 'undefined' ? this['core'] = {} : exports);
 
 
-function Player() {}
+function Player(uuid) {
+  this.uuid = uuid;
+}
