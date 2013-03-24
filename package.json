@@ -1,6 +1,6 @@
 {
-  "name": "tronsockets",
-  "description": "Multiplayer Tron clone with websockets",
+  "name": "tanksockets",
+  "description": "Multiplayer Tank clone with websockets",
   "version": "0.0.1",
   "engines": {
     "node": "0.8.16",

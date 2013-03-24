@@ -1,4 +1,4 @@
-tronsockets
+tanksockets
 ===========
 
-Multiplayer Tron clone with HTML5 canvas and WebSockets.
+Multiplayer Tank clone with HTML5 canvas and WebSockets.
