@@ -32,7 +32,12 @@ Player.prototype.move = function(direction) {
     case 'w': newX -= 1; break;
     case 'e': newX += 1; break;
   }
-
-
 };
 
+
+function World() {
+};
+
+
+function Physics() {
+};
