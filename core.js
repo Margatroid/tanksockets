@@ -4,3 +4,6 @@
   else {
   }
 })(typeof exports === 'undefined' ? this['core'] = {} : exports);
+
+
+function Player() {}
