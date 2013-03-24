@@ -57,4 +57,9 @@ function Graphics() {
   });
 
   canvas.add(tank);
+
+  canvas.on('mouse:move', function(options) {
+    var pointer = canvas.getPointer(options.e);
+    $('#debug').html(pointer.x + ', ' + pointer.y);
+  });
 };
