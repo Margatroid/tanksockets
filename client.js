@@ -31,20 +31,29 @@ function Graphics() {
   var hull = new fabric.Rect({
     fill: 'red',
     width: 20,
-    height: 30,
+    height: 30
   });
 
-  var turret = new fabric.Rect({
+  var mainGun = new fabric.Rect({
     top:    -10,
     width:  5,
     height: 20,
-    fill:   'black',
-    angle:  0
+    fill:   'black'
   });
 
-  var tank = new fabric.Group([ hull, turret ], {
+  // Invisble gun to make gun rotate on the correct pivot.
+  var mainGunCounterBalance = new fabric.Rect({
+    fill:    'blue',
+    height:  20,
+    top:     10,
+    opacity: 0
+  });
+
+  var gun = new fabric.Group([ mainGun, mainGunCounterBalance ], {});
+
+  var tank = new fabric.Group([ hull, gun ], {
     left: 600,
-    top:  300,
+    top:  300
   });
 
   canvas.add(tank);
