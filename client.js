@@ -11,10 +11,11 @@ function Connection() {
 
 Connection.prototype.connect = function() {
   this.socket = io.connect('/');
+  this.uuid;
 
   this.socket.on('onconnected', function(data) {
     console.log('Connected to server. UUID: ' + data.id);
-    that.uuid = data.id;
+    this.uuid = data.id;
   });
 };
 
