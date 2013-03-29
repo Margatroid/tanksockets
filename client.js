@@ -16,10 +16,20 @@ Connection.prototype.connect = function() {
   this.socket.on('onconnected', function(data) {
     console.log('Connected to server. UUID: ' + data.id);
     this.uuid = data.id;
+
+    // Temporary code to init a tank from a new player.
+    graphics.init();
+
+    var player = new Player(this.uuid);
+    var tank   = new Tank(player);
+
+    clientWorld.addTank(tank);
   });
 };
 
 function Graphics() {
+  this.canvas;
+  /*
   var canvas = new fabric.Canvas('canvas', { backgroundColor: '#EDE3BB' });
 
   var hull = new fabric.Rect({
@@ -60,6 +70,11 @@ function Graphics() {
     canvas.renderAll();
     $('#debug').html(pointer.x + ', ' + pointer.y + '. Angle: ' + angle);
   });
+  */
+};
+
+Graphics.prototype.init = function() {
+  this.canvas = new fabric.Canvas('canvas', { backgroundColor: '#EDE3BB' });
 };
 
 var proto = Object.getPrototypeOf;
@@ -72,4 +87,5 @@ ClientWorld.prototype   = Object.create(World.prototype);
 ClientWorld.constructor = ClientWorld;
 
 var clientWorld = new ClientWorld();
+var graphics    = new Graphics();
 
