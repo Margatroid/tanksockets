@@ -1,28 +1,22 @@
-(function(){
-  var requestAnimationFrame = window.requestAnimationFrame ||
-    window.mozRequestAnimationFrame ||
-    window.webkitRequestAnimationFrame ||
-    window.msRequestAnimationFrame;
-
-    window.requestAnimationFrame = requestAnimationFrame;
-})();
-
-var socket = io.connect('/');
-
-function establishConnection() {
-  socket.on('onconnected', function(data) {
-    console.log('Received UUID of ' + data.id + ' from socket.io');
-  });
-}
+var connection;
 
 $(document).ready(function() {
-  establishConnection();
-
-  //Graphics = new Graphics();
+  connection = new Connection();
+  connection.connect();
 });
 
+function Connection() {
+  this.socket;
+}
 
-///////////////////////////////////////////////////////////////////////////////
+Connection.prototype.connect = function() {
+  this.socket = io.connect('/');
+
+  this.socket.on('onconnected', function(data) {
+    console.log('Connected to server. UUID: ' + data.id);
+    that.uuid = data.id;
+  });
+};
 
 function Graphics() {
   var canvas = new fabric.Canvas('canvas', { backgroundColor: '#EDE3BB' });
@@ -77,6 +71,4 @@ ClientWorld.prototype   = Object.create(World.prototype);
 ClientWorld.constructor = ClientWorld;
 
 var clientWorld = new ClientWorld();
-
-
 
