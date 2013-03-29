@@ -16,6 +16,23 @@ function ClientTank() {
 ClientTank.prototype   = Object.create(Tank.prototype);
 ClientTank.constructor = ClientTank;
 
+ClientTank.prototype.getCanvasObjectFromTank = function(tank) {
+  // Shape the hull of the tank.
+  var hull = new fabric.Rect({ fill: 'red', width: 20, height: 30 });
+
+  // Shape gun, along with invisible counterbalance gun to allow pivoting.
+  var mainGun = new fabric.Rect(
+    { top: -10, width: 5, height: 20, fill: 'black' }
+  );
+  var mainGunCounterBalance = new fabric.Rect(
+    { top: 10, height: 20, opacity: 0 }
+  );
+
+  var gun = new fabric.Group([ mainGun, mainGunCounterBalance ]);
+
+  return new fabric.Group([ hull, gun ]);
+};
+
 // Connection object.
 
 function Connection() {
