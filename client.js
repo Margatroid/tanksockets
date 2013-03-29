@@ -66,3 +66,17 @@ function Graphics() {
     $('#debug').html(pointer.x + ', ' + pointer.y + '. Angle: ' + angle);
   });
 };
+
+var proto = Object.getPrototypeOf;
+
+function ClientWorld() {
+  proto(ClientWorld.prototype).constructor.call(this);
+}
+
+ClientWorld.prototype   = Object.create(World.prototype);
+ClientWorld.constructor = ClientWorld;
+
+var clientWorld = new ClientWorld();
+
+
+
