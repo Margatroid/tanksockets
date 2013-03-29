@@ -12,8 +12,6 @@ function Player(uuid) {
   var _hp   = 1;
 
   // Publicly accessible player attributes.
-  this.x    = 0;
-  this.y    = 0;
   this.name = _uuid;
 
   // Privileged method to damage this player.
@@ -49,4 +47,6 @@ function Physics() {
 
 function Tank(player) {
   this.player = player;
+  this.x      = 0;
+  this.y      = 0;
 };
