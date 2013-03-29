@@ -18,7 +18,7 @@ function establishConnection() {
 $(document).ready(function() {
   establishConnection();
 
-  Graphics = new Graphics();
+  //Graphics = new Graphics();
 });
 
 
