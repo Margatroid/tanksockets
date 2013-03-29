@@ -1,10 +1,15 @@
-var connection;
-
 $(document).ready(function() {
   connection = new Connection();
   connection.connect();
 });
 
+// Inherit World in ClientWorld
+function ClientWorld() {
+  proto(ClientWorld.prototype).constructor.call(this);
+}
+
+ClientWorld.prototype   = Object.create(World.prototype);
+ClientWorld.constructor = ClientWorld;
 function Connection() {
   this.socket;
 }
@@ -73,19 +78,13 @@ function Graphics() {
   */
 };
 
+
 Graphics.prototype.init = function() {
   this.canvas = new fabric.Canvas('canvas', { backgroundColor: '#EDE3BB' });
 };
 
-var proto = Object.getPrototypeOf;
 
-function ClientWorld() {
-  proto(ClientWorld.prototype).constructor.call(this);
-}
-
-ClientWorld.prototype   = Object.create(World.prototype);
-ClientWorld.constructor = ClientWorld;
-
+var connection;
+var proto       = Object.getPrototypeOf;
 var clientWorld = new ClientWorld();
 var graphics    = new Graphics();
-
