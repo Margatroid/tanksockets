@@ -33,6 +33,7 @@ Player.prototype.move = function(direction) {
 
 
 function World() {
+  var _players = [];
 };
 
 
@@ -46,7 +47,10 @@ function Physics() {
 
 
 function Tank(player) {
-  this.player = player;
-  this.x      = 0;
-  this.y      = 0;
+  var _player = player;
+
+  this.x = 0;
+  this.y = 0;
 };
+
+
