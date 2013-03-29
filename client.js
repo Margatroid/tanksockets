@@ -11,6 +11,8 @@ ClientWorld.constructor = ClientWorld;
 
 function ClientTank(player) {
   proto(ClientTank.prototype).constructor.call(this, player);
+
+  this.fabricTank;
 }
 
 ClientTank.prototype   = Object.create(Tank.prototype);
@@ -35,11 +37,15 @@ ClientTank.prototype.getCanvasObjectFromTank = function(tank) {
     tank.y = world.getDefaultStartingPos().y;
   }
 
-  return new fabric.Group([ hull, gun ], { left: tank.x, top: tank.y });
+  var attributes  = { left: tank.x, top: tank.y };
+  this.fabricTank = new fabric.Group([ hull, gun ], attributes);
 };
 
-ClientTank.prototype.drawTank = function(tank) {
-  graphics.canvas.add(this.getCanvasObjectFromTank(tank));
+ClientTank.prototype.addTankToCanvas = function(tank) {
+  this.getCanvasObjectFromTank();
+  this.setupTurretRotation();
+
+  graphics.canvas.add(this.fabricTank());
 };
 
 // Connection object.
