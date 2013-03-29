@@ -1,10 +1,23 @@
-// Inherit World in ClientWorld
+// ClientWorld object.
+
 function ClientWorld() {
   proto(ClientWorld.prototype).constructor.call(this);
 }
 
 ClientWorld.prototype   = Object.create(World.prototype);
 ClientWorld.constructor = ClientWorld;
+
+// ClientTank object.
+
+function ClientTank() {
+  proto(ClientTank.prototype).constructor.call(this);
+}
+
+ClientTank.prototype   = Object.create(Tank.prototype);
+ClientTank.constructor = ClientTank;
+
+// Connection object.
+
 function Connection() {
   this.socket;
 }
@@ -21,11 +34,13 @@ Connection.prototype.connect = function() {
     graphics.init();
 
     var player = new Player(this.uuid);
-    var tank   = new Tank(player);
+    var tank   = new ClientTank(player);
 
     clientWorld.addTank(tank);
   });
 };
+
+// Graphics object.
 
 function Graphics() {
   this.canvas;
@@ -77,6 +92,9 @@ function Graphics() {
 Graphics.prototype.init = function() {
   this.canvas = new fabric.Canvas('canvas', { backgroundColor: '#EDE3BB' });
 };
+
+
+
 
 
 var connection;
