@@ -24,7 +24,6 @@ $(document).ready(function() {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-
 function Graphics() {
   var canvas = new fabric.Canvas('canvas', { backgroundColor: '#EDE3BB' });
 
@@ -60,6 +59,10 @@ function Graphics() {
 
   canvas.on('mouse:move', function(options) {
     var pointer = canvas.getPointer(options.e);
-    $('#debug').html(pointer.x + ', ' + pointer.y);
+    var angle = (Math.atan2(pointer.y - tank.top, pointer.x - tank.left)
+      * 180 / Math.PI) + 90;
+    gun.rotate(angle);
+    canvas.renderAll();
+    $('#debug').html(pointer.x + ', ' + pointer.y + '. Angle: ' + angle);
   });
 };
