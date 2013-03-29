@@ -7,15 +7,11 @@
 
 
 function Player(uuid) {
-  // Private properties.
-  var _uuid = uuid;
-  var _hp   = 1;
-
-  // Publicly accessible player attributes.
+  this.uuid = uuid;
+  this.hp   = 1;
   this.name = _uuid;
 
-  // Privileged method to damage this player.
-  this.damage = function(damage) { _hp -= damage };
+  this.damage = function(damage) { hp -= damage };
 }
 
 
@@ -33,7 +29,12 @@ Player.prototype.move = function(direction) {
 
 
 function World() {
-  var _players = [];
+  this.players = [];
+};
+
+
+World.prototype.addPlayer = function(player) {
+  
 };
 
 
@@ -47,10 +48,9 @@ function Physics() {
 
 
 function Tank(player) {
-  var _player = player;
-
-  this.x = 0;
-  this.y = 0;
+  this.player = player;
+  this.x      = 0;
+  this.y      = 0;
 };
 
 
