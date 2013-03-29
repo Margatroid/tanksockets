@@ -29,12 +29,12 @@ Player.prototype.move = function(direction) {
 
 
 function World() {
-  this.players = [];
+  this.tanks = [];
 };
 
 
-World.prototype.addPlayer = function(player) {
-  this.push(player);
+World.prototype.addTank = function(tank) {
+  this.tanks.push(tank);
 };
 
 
