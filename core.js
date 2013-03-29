@@ -7,7 +7,7 @@
 
 
 function Player(uuid) {
-  // Private. Player UUID.
+  // Private properties.
   var _uuid = uuid;
   var _hp   = 1;
 
