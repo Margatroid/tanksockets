@@ -48,5 +48,5 @@ function Physics() {
 
 
 function Tank(player) {
-  var _player = player;
+  this.player = player;
 };
