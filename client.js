@@ -13,6 +13,7 @@ function ClientTank(player) {
   proto(ClientTank.prototype).constructor.call(this, player);
 
   this.fabricTank;
+  this.fabricGun;
 }
 
 ClientTank.prototype   = Object.create(Tank.prototype);
@@ -30,7 +31,7 @@ ClientTank.prototype.getCanvasObjectFromTank = function(tank) {
     { top: 10, height: 20, opacity: 0 }
   );
 
-  var gun = new fabric.Group([ mainGun, mainGunCounterBalance ]);
+  this.fabricGun = new fabric.Group([ mainGun, mainGunCounterBalance ]);
 
   if(!tank.x && !tank.y) {
     tank.x = world.getDefaultStartingPos().x;
@@ -38,14 +39,27 @@ ClientTank.prototype.getCanvasObjectFromTank = function(tank) {
   }
 
   var attributes  = { left: tank.x, top: tank.y };
-  this.fabricTank = new fabric.Group([ hull, gun ], attributes);
+  this.fabricTank = new fabric.Group([ hull, this.fabricGun ], attributes);
 };
 
 ClientTank.prototype.addTankToCanvas = function(tank) {
-  this.getCanvasObjectFromTank();
+  this.getCanvasObjectFromTank(tank);
   this.setupTurretRotation();
 
-  graphics.canvas.add(this.fabricTank());
+  graphics.canvas.add(this.fabricTank);
+};
+
+ClientTank.prototype.setupTurretRotation = function() {
+  var that = this;
+
+  graphics.canvas.on('mouse:move', function(options) {
+    var pointer = graphics.canvas.getPointer(options.e);
+    var radians = Math.atan2(pointer.y - that.y, pointer.x - that.x);
+    var angle   = (radians * 180 / Math.PI) + 90;
+
+    that.fabricGun.rotate(angle);
+    graphics.canvas.renderAll();
+  })
 };
 
 // Connection object.
@@ -70,7 +84,7 @@ Connection.prototype.connect = function() {
 
     clientWorld.addTank(tank);
     
-    tank.drawTank(tank);
+    tank.addTankToCanvas(tank);
   });
 };
 
