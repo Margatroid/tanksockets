@@ -29,7 +29,9 @@ Player.prototype.move = function(direction) {
 
 
 function World() {
-  this.tanks = [];
+  this.tanks  = [];
+  this.size.x = 1200;
+  this.size.y = 800;
 };
 
 
@@ -52,5 +54,6 @@ function Tank(player) {
   this.x      = 0;
   this.y      = 0;
 };
+
 
 
