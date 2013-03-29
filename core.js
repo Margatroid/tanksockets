@@ -40,7 +40,7 @@ World.prototype.addPlayer = function(player) {
 
 World.prototype.getDefaultStartingPos = function() {
   return { x: 600, y: 300 };
-});
+};
 
 
 function Physics() {
