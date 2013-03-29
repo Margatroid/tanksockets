@@ -34,7 +34,7 @@ function World() {
 
 
 World.prototype.addPlayer = function(player) {
-  
+  this.push(player);
 };
 
 
