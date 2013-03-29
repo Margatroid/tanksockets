@@ -9,7 +9,7 @@
 function Player(uuid) {
   this.uuid = uuid;
   this.hp   = 1;
-  this.name = _uuid;
+  this.name = uuid;
 
   this.damage = function(damage) { hp -= damage };
 }
