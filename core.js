@@ -55,4 +55,4 @@ function Tank(player) {
 };
 
 
-
+var world = new World();
