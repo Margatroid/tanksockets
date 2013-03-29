@@ -1,8 +1,3 @@
-$(document).ready(function() {
-  connection = new Connection();
-  connection.connect();
-});
-
 // Inherit World in ClientWorld
 function ClientWorld() {
   proto(ClientWorld.prototype).constructor.call(this);
@@ -88,3 +83,8 @@ var connection;
 var proto       = Object.getPrototypeOf;
 var clientWorld = new ClientWorld();
 var graphics    = new Graphics();
+
+$(document).ready(function() {
+  connection = new Connection();
+  connection.connect();
+});
