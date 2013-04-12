@@ -40,6 +40,13 @@ function World() {
   this.size  = { x: 1200, y: 800 };
 };
 
+World.prototype.loop = function loop() {
+
+};
+
+World.prototype.loopCallback = function loopCallback() {
+
+};
 
 World.prototype.addTank = function(tank) {
   this.tanks.push(tank);
