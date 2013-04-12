@@ -5,7 +5,6 @@
   }
 })(typeof exports === 'undefined' ? this['core'] = {} : exports);
 
-
 function Player(uuid) {
   this.uuid      = uuid;
   this.hp        = 1;
@@ -98,3 +97,8 @@ function Tank(player) {
 
 
 var world = new World();
+
+exports.Player  = Player;
+exports.World   = World;
+exports.Physics = Physics;
+exports.Tank    = Tank;
