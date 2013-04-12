@@ -44,3 +44,7 @@ app.get('/client.js', function (req, res) {
 app.get('/0.9.15.min.js', function (req, res) {
   res.sendfile(__dirname + '/0.9.15.min.js');
 });
+
+
+function Server() {
+};
