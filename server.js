@@ -26,6 +26,8 @@ sio.sockets.on('connection', function(client) {
   client.on('disconnect', function() {
     console.log(Date() + ' ' + client.userId + ' disconnected.');
   });
+
+  server.addPlayer(client);
 });
 
 
@@ -48,3 +50,11 @@ app.get('/0.9.15.min.js', function (req, res) {
 
 function Server() {
 };
+
+
+Server.prototype.addPlayer = function addClient(client) {
+  var player = new core.Player(client.uuid);
+};
+
+
+server = new Server();
