@@ -50,7 +50,7 @@ function World() {
 };
 
 World.prototype.loop = function loop() {
-  var updateInterval = 50;
+  var updateInterval = 5;
 
   var that = this;
   var callback = function() {
