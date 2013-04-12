@@ -42,7 +42,7 @@ Player.prototype.movementIntent = function movementIntent(direction, isMoving) {
   this.isMoving  = isMoving;
   this.direction = direction;
 
-  this.movementIntentClient();
+  this.movementIntentClient(direction, isMoving);
 };
 
 Player.prototype.movementIntentClient = function (direction, isMoving) {};
