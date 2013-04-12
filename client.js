@@ -45,6 +45,7 @@ ClientTank.prototype.getCanvasObjectFromTank = function(tank) {
 ClientTank.prototype.addTankToCanvas = function(tank) {
   this.getCanvasObjectFromTank(tank);
   this.setupTurretRotation();
+  this.setupPlayerControls();
 
   graphics.canvas.add(this.fabricTank);
 };
@@ -63,12 +64,13 @@ ClientTank.prototype.setupTurretRotation = function() {
 };
 
 ClientTank.prototype.setupPlayerControls = function() {
+  var that = this;
   $(document).keypress(function(event) {
     switch(event.which) {
-      case 119: this.player.move('n'); break; // W
-      case 97:  this.player.move('w'); break; // A
-      case 115: this.player.move('s'); break; // S
-      case 100: this.player.move('e'); break; // D
+      case 119: that.player.move('n'); break; // W
+      case 97:  that.player.move('w'); break; // A
+      case 115: that.player.move('s'); break; // S
+      case 100: that.player.move('e'); break; // D
     }
   });
 };
