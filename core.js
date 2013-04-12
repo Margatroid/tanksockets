@@ -41,7 +41,11 @@ Player.prototype.setOnMoveCallback = function setOnMoveCallBack(callback) {
 Player.prototype.movementIntent = function movementIntent(direction, isMoving) {
   this.isMoving  = isMoving;
   this.direction = direction;
+
+  this.movementIntentClient();
 };
+
+Player.prototype.movementIntentClient = function() {};
 
 function World() {
   this.tanks = [];
