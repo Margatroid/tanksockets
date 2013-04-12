@@ -38,14 +38,23 @@ Player.prototype.setOnMoveCallback = function setOnMoveCallBack(callback) {
 function World() {
   this.tanks = [];
   this.size  = { x: 1200, y: 800 };
+
+  this.loop();
 };
 
 World.prototype.loop = function loop() {
+  var updateInterval = 50;
 
+  var that = this;
+  var callback = function() {
+    that.loopCallback();
+    that.loop();
+  };
+
+  setTimeout(callback, updateInterval);
 };
 
 World.prototype.loopCallback = function loopCallback() {
-
 };
 
 World.prototype.addTank = function(tank) {
