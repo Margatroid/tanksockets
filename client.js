@@ -7,6 +7,16 @@ function ClientWorld() {
 ClientWorld.prototype   = Object.create(World.prototype);
 ClientWorld.constructor = ClientWorld;
 
+ClientWorld.prototype.loop = function loop() {
+  var that = this;
+  var callback = function() {
+    that.loopCallback();
+    that.loop();
+  };
+
+  fabric.util.requestAnimFrame(callback);
+};
+
 // ClientTank object.
 
 function ClientTank(player) {
