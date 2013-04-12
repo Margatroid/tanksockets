@@ -34,7 +34,7 @@ app.get('/', function (req, res) {
 });
 
 app.get('/core.js', function (req, res) {
-  res.sendfile(__dirname + '/core.js')
+  res.sendfile(__dirname + '/core.js');
 });
 
 app.get('/client.js', function (req, res) {
