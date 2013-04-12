@@ -23,6 +23,9 @@ sio.sockets.on('connection', function(client) {
   client.emit('onconnected', { id: client.userId } );
   console.log(Date() + ' ' + client.userId + ' connected.');
 
+  client.on('movementIntent', function(client) {
+  });
+
   client.on('disconnect', function() {
     console.log(Date() + ' ' + client.userId + ' disconnected.');
   });
