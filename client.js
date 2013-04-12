@@ -59,7 +59,7 @@ ClientTank.prototype.setupTurretRotation = function() {
 
     that.fabricGun.rotate(angle);
     graphics.canvas.renderAll();
-  })
+  });
 };
 
 // Connection object.
