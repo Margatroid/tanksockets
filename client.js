@@ -62,6 +62,17 @@ ClientTank.prototype.setupTurretRotation = function() {
   });
 };
 
+ClientTank.prototype.setupPlayerControls = function() {
+  $(document).keypress(function(event) {
+    switch(event.which) {
+      case 119: this.player.move('n'); break; // W
+      case 97:  this.player.move('w'); break; // A
+      case 115: this.player.move('s'); break; // S
+      case 100: this.player.move('e'); break; // D
+    }
+  });
+};
+
 // Connection object.
 
 function Connection() {
@@ -83,7 +94,7 @@ Connection.prototype.connect = function() {
     var tank   = new ClientTank(player);
 
     clientWorld.addTank(tank);
-    
+
     tank.addTankToCanvas(tank);
   });
 };
@@ -93,7 +104,6 @@ Connection.prototype.connect = function() {
 function Graphics() {
   this.canvas;
 };
-
 
 Graphics.prototype.init = function() {
   this.canvas = new fabric.Canvas('canvas', { backgroundColor: '#EDE3BB' });
