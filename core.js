@@ -11,6 +11,8 @@ function Player(uuid) {
   this.hp   = 1;
   this.name = uuid;
 
+  this.onMoveCallback = function(){};
+
   this.damage = function(damage) { hp -= damage };
 }
 
@@ -25,8 +27,13 @@ Player.prototype.move = function(direction) {
     case 'w': newX -= 1; break;
     case 'e': newX += 1; break;
   }
+
+  this.onMoveCallback();
 };
 
+Player.prototype.setOnMoveCallback = function setOnMoveCallBack(callback) {
+  this.onMoveCallback = callback;
+};
 
 function World() {
   this.tanks = [];

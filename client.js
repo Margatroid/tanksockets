@@ -42,10 +42,16 @@ ClientTank.prototype.getCanvasObjectFromTank = function(tank) {
   this.fabricTank = new fabric.Group([ hull, this.fabricGun ], attributes);
 };
 
+ClientTank.prototype.onMove = function() {
+  var tank = this.fabricTank;
+};
+
 ClientTank.prototype.addTankToCanvas = function(tank) {
   this.getCanvasObjectFromTank(tank);
   this.setupTurretRotation();
   this.setupPlayerControls();
+
+  this.player.setOnMoveCallback(this.onMove);
 
   graphics.canvas.add(this.fabricTank);
 };
