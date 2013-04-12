@@ -46,6 +46,9 @@ function World() {
   this.tanks = [];
   this.size  = { x: 1200, y: 800 };
 
+  this.time              = new Date();
+  this.lastIterationTime = 0;
+
   this.loop();
 };
 
