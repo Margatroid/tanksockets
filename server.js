@@ -54,6 +54,7 @@ function Server() {
 
 Server.prototype.addPlayer = function addClient(client) {
   var player = new core.Player(client.uuid);
+  var tank   = new core.Tank(player);
 };
 
 
