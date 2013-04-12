@@ -127,6 +127,10 @@ Connection.prototype.connect = function() {
   });
 };
 
+Connection.prototype.emit = function emit(name, data){
+  this.socket.emit(name, data);
+};
+
 // Graphics object.
 
 function Graphics() {
