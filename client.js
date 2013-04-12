@@ -81,12 +81,12 @@ ClientTank.prototype.setupTurretRotation = function() {
 
 ClientTank.prototype.setupPlayerControls = function() {
   var that = this;
-  $(document).keypress(function(event) {
+  $(document).keydown(function(event) {
     switch(event.which) {
-      case 119: that.player.move('n'); break; // W
-      case 97:  that.player.move('w'); break; // A
-      case 115: that.player.move('s'); break; // S
-      case 100: that.player.move('e'); break; // D
+      case 87: that.player.move('n'); break; // W
+      case 65: that.player.move('w'); break; // A
+      case 83: that.player.move('s'); break; // S
+      case 68: that.player.move('e'); break; // D
     }
   });
 };
