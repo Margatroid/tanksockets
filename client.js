@@ -101,6 +101,10 @@ ClientTank.prototype.setupPlayerControls = function() {
   });
 };
 
+Player.prototype.movementIntentClient = function(direction, isMoving) {
+  connection.emit('movementIntent', { direction: direction, isMoving: isMoving });
+};
+
 // Connection object.
 
 function Connection() {
