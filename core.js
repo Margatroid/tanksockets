@@ -45,7 +45,7 @@ Player.prototype.movementIntent = function movementIntent(direction, isMoving) {
   this.movementIntentClient();
 };
 
-Player.prototype.movementIntentClient = function() {};
+Player.prototype.movementIntentClient = function (direction, isMoving) {};
 
 function World() {
   this.tanks = [];
