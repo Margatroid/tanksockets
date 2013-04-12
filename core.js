@@ -7,9 +7,11 @@
 
 
 function Player(uuid) {
-  this.uuid = uuid;
-  this.hp   = 1;
-  this.name = uuid;
+  this.uuid      = uuid;
+  this.hp        = 1;
+  this.name      = uuid;
+  this.isMoving  = false;
+  this.direction = 'n';
 
   this.onMoveCallback = function(){};
 
@@ -35,6 +37,8 @@ Player.prototype.setOnMoveCallback = function setOnMoveCallBack(callback) {
   this.onMoveCallback = callback;
 };
 
+
+
 function World() {
   this.tanks = [];
   this.size  = { x: 1200, y: 800 };
@@ -55,6 +59,7 @@ World.prototype.loop = function loop() {
 };
 
 World.prototype.loopCallback = function loopCallback() {
+
 };
 
 World.prototype.addTank = function(tank) {
