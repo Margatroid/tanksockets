@@ -12,6 +12,7 @@ function Player(uuid) {
   this.name      = uuid;
   this.isMoving  = false;
   this.direction = 'n';
+  this.tank      = null;
 
   this.onMoveCallback = function(){};
 
@@ -25,10 +26,10 @@ Player.prototype.move = function() {
   }
 
   switch(this.direction) {
-    case 'n': this.y -= 1; break;
-    case 's': this.y += 1; break;
-    case 'w': this.x -= 1; break;
-    case 'e': this.x += 1; break;
+    case 'n': this.tank.y -= 1; break;
+    case 's': this.tank.y += 1; break;
+    case 'w': this.tank.x -= 1; break;
+    case 'e': this.tank.x += 1; break;
   }
 
   this.onMoveCallback();
@@ -91,6 +92,8 @@ function Tank(player) {
   this.player = player;
   this.x      = 0;
   this.y      = 0;
+
+  player.tank = this;
 };
 
 
