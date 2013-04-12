@@ -15,7 +15,7 @@ function Player(uuid) {
 
   this.onMoveCallback = function(){};
 
-  this.damage = function(damage) { hp -= damage };
+  this.damage = function(damage) { hp -= damage; };
 }
 
 
