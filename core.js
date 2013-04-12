@@ -19,15 +19,16 @@ function Player(uuid) {
 }
 
 
-Player.prototype.move = function(direction) {
-  newX = this.x;
-  newY = this.y;
+Player.prototype.move = function() {
+  if(!this.isMoving) {
+    return;
+  }
 
-  switch(direction) {
-    case 'n': newY -= 1; break;
-    case 's': newY += 1; break;
-    case 'w': newX -= 1; break;
-    case 'e': newX += 1; break;
+  switch(this.direction) {
+    case 'n': this.y -= 1; break;
+    case 's': this.y += 1; break;
+    case 'w': this.x -= 1; break;
+    case 'e': this.x += 1; break;
   }
 
   this.onMoveCallback();
@@ -53,7 +54,7 @@ function World() {
 };
 
 World.prototype.loop = function loop() {
-  var updateInterval = 5;
+  var updateInterval = 500;
 
   var that = this;
   var callback = function() {
@@ -65,7 +66,11 @@ World.prototype.loop = function loop() {
 };
 
 World.prototype.loopCallback = function loopCallback() {
-
+  if(this.time > this.lastIterationTime + 10) {
+    this.tanks.forEach(function(tank) {
+      tank.player.move();
+    });
+  }
 };
 
 World.prototype.addTank = function(tank) {
