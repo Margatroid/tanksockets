@@ -53,7 +53,8 @@ ClientTank.prototype.getCanvasObjectFromTank = function(tank) {
 };
 
 ClientTank.prototype.onMove = function() {
-  var tank = this.fabricTank;
+  this.tank.fabricTank.set({ left: this.tank.x, top: this.tank.y });
+  graphics.canvas.renderAll();
 };
 
 ClientTank.prototype.addTankToCanvas = function(tank) {
