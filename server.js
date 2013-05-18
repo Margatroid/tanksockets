@@ -45,8 +45,11 @@ app.get('/0.9.15.min.js', function (req, res) {
   res.sendfile(__dirname + '/0.9.15.min.js');
 });
 
+var world = new core.World();
+
 function Server() {};
 
 Server.prototype.onNewClientConnect = function onNewClientConnect() {
 
 };
+
