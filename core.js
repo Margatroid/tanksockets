@@ -25,4 +25,14 @@ World.prototype.getDefaultStartingPos = function() {
   return { x: 600, y: 300 };
 };
 
+World.prototype.removeTankByUserId = function removeTankByUserId(userId) {
+  for (var index in this.tanks) {
+    if (this.tanks[index].userId == userId) {
+      delete this.tanks[index];
+      return;
+    }
+  }
+};
+
 exports.World = World;
+exports.Tank = Tank;

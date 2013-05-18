@@ -19,11 +19,19 @@ Lobby.prototype.onNewClientConnect = function onNewClientConnect(client) {
     lobby.onClientDisconnect(client);
   });
 
+  var newTank = new core.Tank();
+  newTank.userId = client.userId;
+  world.addTank(newTank);
+  client.tank = newTank;
+
   console.log(Date() + ' ' + client.userId + ' connected.');
 };
 
 Lobby.prototype.onClientDisconnect = function onNewClientDisconnect(client) {
   console.log(Date() + ' ' + client.userId + ' disconnected.');
+  world.removeTankByUserId(client.tank.userId);
+  console.log('Tanks remaining: ');
+  console.log(world.tanks);
 };
 
 sio.configure(function() {
