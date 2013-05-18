@@ -37,4 +37,4 @@ World.prototype.removeTankByUserId = function removeTankByUserId(userId) {
 };
 
 exports.World = World;
-exports.Tank = Tank;
+exports.Tank  = Tank;
