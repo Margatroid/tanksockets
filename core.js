@@ -29,9 +29,11 @@ World.prototype.removeTankByUserId = function removeTankByUserId(userId) {
   for (var index in this.tanks) {
     if (this.tanks[index].userId == userId) {
       delete this.tanks[index];
-      return;
     }
   }
+
+  // Empty array of empty elements.
+  this.tanks = this.tanks.filter(function(n){ return n; });
 };
 
 exports.World = World;
