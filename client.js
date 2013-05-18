@@ -21,19 +21,6 @@ ClientTank.prototype.addTankToCanvas = function(tank) {
   graphics.canvas.add(this.fabricTank);
 };
 
-ClientTank.prototype.setupTurretRotation = function() {
-  var that = this;
-
-  graphics.canvas.on('mouse:move', function(options) {
-    var pointer = graphics.canvas.getPointer(options.e);
-    var radians = Math.atan2(pointer.y - that.y, pointer.x - that.x);
-    var angle   = (radians * 180 / Math.PI) + 90;
-
-    that.fabricGun.rotate(angle);
-    graphics.canvas.renderAll();
-  })
-};
-
 // Connection object.
 
 function Connection() {
@@ -74,19 +61,35 @@ Graphics.prototype.buildFabricTank() = function buildFabricTank(tank) {
     // Shape the hull of the tank.
   var hull = new fabric.Rect({ fill: 'red', width: 20, height: 30 });
 
-  // Shape gun, along with invisible counterbalance gun to allow pivoting.
-  var mainGun = new fabric.Rect(
-    { top: -10, width: 5, height: 20, fill: 'black' }
-  );
-  var mainGunCounterBalance = new fabric.Rect(
-    { top: 10, height: 20, opacity: 0 }
-  );
-
-  var fabricGun = new fabric.Group([ mainGun, mainGunCounterBalance ]);
+  var fabricGun = this.buildFabricGun();
 
   var attributes  = { left: tank.x, top: tank.y };
   return fabric.Group([ hull, fabricGun ], attributes);
 }
+
+Graphics.prototype.buildFabricGun() = function buildFabricGun() {
+  // Shape gun, along with invisible counterbalance gun to allow pivoting.
+  var mainGun = new fabric.Rect(
+    { top: -10, width: 5, height: 20, fill: 'black' }
+  );
+
+  var mainGunCounterBalance = new fabric.Rect(
+    { top: 10, height: 20, opacity: 0 }
+  );
+
+  var gun = fabric.Group([ mainGun, mainGunCounterBalance ]);
+};
+
+Graphics.prototype.setupTurretRotation = function() {
+  graphics.canvas.on('mouse:move', function(options) {
+    var pointer = graphics.canvas.getPointer(options.e);
+    var radians = Math.atan2(pointer.y - that.y, pointer.x - that.x);
+    var angle   = (radians * 180 / Math.PI) + 90;
+
+    that.fabricGun.rotate(angle);
+    graphics.canvas.renderAll();
+  })
+};
 
 var connection;
 var proto    = Object.getPrototypeOf;
