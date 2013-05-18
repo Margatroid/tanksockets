@@ -9,20 +9,6 @@ var core = require('./core');
 var world = new core.World();
 var lobby = new Lobby();
 
-server.listen(3000);
-
-/*
-sio.sockets.on('connection', function(client) {
-  client.userId = uuid();
-
-  client.emit('onconnected', { id: client.userId } );
-  console.log(Date() + ' ' + client.userId + ' connected.');
-
-  client.on('disconnect', function() {
-    console.log(Date() + ' ' + client.userId + ' disconnected.');
-  });
-});
-*/
 function Lobby() {}
 
 Lobby.prototype.onNewClientConnect = function onNewClientConnect(client) {
@@ -65,3 +51,5 @@ app.get('/client.js', function (req, res) {
 app.get('/0.9.15.min.js', function (req, res) {
   res.sendfile(__dirname + '/0.9.15.min.js');
 });
+
+server.listen(3000);
