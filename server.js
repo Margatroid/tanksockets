@@ -23,6 +23,32 @@ sio.sockets.on('connection', function(client) {
   });
 });
 */
+function Lobby() {}
+
+Lobby.prototype.onNewClientConnect = function onNewClientConnect(client) {
+  client.userId = uuid();
+  client.emit('From server: Connection established. You are ' + client.userId);
+
+  client.on('disconnect', function() {
+    lobby.onClientDisconnect(client)
+  });
+
+  console.log(Date() + ' ' + client.userId + ' connected.');
+};
+
+Lobby.prototype.onClientDisconnect = function onNewClientDisconnect(client) {
+  console.log(Date() + ' ' + client.userId + ' disconnected.');
+};
+
+sio.configure(function() {
+  sio.set('authorization', function(handshakeData, callback) {
+    callback(null, true);
+  });
+
+  sio.set('log_level', 1);
+});
+
+sio.sockets.on('connection', lobby.onNewClientConnect);
 
 app.get('/', function (req, res) {
   res.sendfile(__dirname + '/index.html');
@@ -39,25 +65,3 @@ app.get('/client.js', function (req, res) {
 app.get('/0.9.15.min.js', function (req, res) {
   res.sendfile(__dirname + '/0.9.15.min.js');
 });
-
-function Lobby() {}
-
-Lobby.prototype.onNewClientConnect = function onNewClientConnect(client) {
-  client.userId = uuid();
-  client.emit('From server: Connection established. You are ' + client.userId);
-  console.log(Date() + ' Player ' + client.userId + ' connected.');
-};
-
-Lobby.prototype.onClientDisconnect = function onNewClientDisconnect() {
-
-};
-
-sio.configure(function() {
-  sio.set('authorization', function(handshakeData, callback) {
-    callback(null, true);
-  });
-
-  sio.set('log_level', 1);
-});
-
-sio.sockets.on('connection', lobby.onNewClientConnect);
