@@ -11,26 +11,7 @@ ClientTank.prototype   = Object.create(Tank.prototype);
 ClientTank.constructor = ClientTank;
 
 ClientTank.prototype.getCanvasObjectFromTank = function(tank) {
-  // Shape the hull of the tank.
-  var hull = new fabric.Rect({ fill: 'red', width: 20, height: 30 });
 
-  // Shape gun, along with invisible counterbalance gun to allow pivoting.
-  var mainGun = new fabric.Rect(
-    { top: -10, width: 5, height: 20, fill: 'black' }
-  );
-  var mainGunCounterBalance = new fabric.Rect(
-    { top: 10, height: 20, opacity: 0 }
-  );
-
-  this.fabricGun = new fabric.Group([ mainGun, mainGunCounterBalance ]);
-
-  if(!tank.x && !tank.y) {
-    tank.x = world.getDefaultStartingPos().x;
-    tank.y = world.getDefaultStartingPos().y;
-  }
-
-  var attributes  = { left: tank.x, top: tank.y };
-  this.fabricTank = new fabric.Group([ hull, this.fabricGun ], attributes);
 };
 
 ClientTank.prototype.addTankToCanvas = function(tank) {
@@ -83,16 +64,33 @@ Connection.prototype.connect = function() {
 
 function Graphics() {
   this.canvas = {};
-};
+}
 
-
-Graphics.prototype.init = function() {
+Graphics.prototype.init = function init() {
   this.canvas = new fabric.Canvas('canvas', { backgroundColor: '#EDE3BB' });
 };
 
+Graphics.prototype.buildFabricTank() = function buildFabricTank(tank) {
+    // Shape the hull of the tank.
+  var hull = new fabric.Rect({ fill: 'red', width: 20, height: 30 });
+
+  // Shape gun, along with invisible counterbalance gun to allow pivoting.
+  var mainGun = new fabric.Rect(
+    { top: -10, width: 5, height: 20, fill: 'black' }
+  );
+  var mainGunCounterBalance = new fabric.Rect(
+    { top: 10, height: 20, opacity: 0 }
+  );
+
+  var fabricGun = new fabric.Group([ mainGun, mainGunCounterBalance ]);
+
+  var attributes  = { left: tank.x, top: tank.y };
+  return fabric.Group([ hull, fabricGun ], attributes);
+}
+
 var connection;
-var proto       = Object.getPrototypeOf;
-var graphics    = new Graphics();
+var proto    = Object.getPrototypeOf;
+var graphics = new Graphics();
 
 $(document).ready(function() {
   connection = new Connection();
