@@ -6,17 +6,12 @@ var app  = require('express')(),
 
 var core = require('./core');
 
+var world = new core.World();
+var lobby = new Lobby();
+
 server.listen(3000);
 
-sio.configure(function() {
-  sio.set('authorization', function(handshakeData, callback) {
-    callback(null, true);
-  });
-
-  sio.set('log_level', 1);
-});
-
-
+/*
 sio.sockets.on('connection', function(client) {
   client.userId = uuid();
 
@@ -27,7 +22,7 @@ sio.sockets.on('connection', function(client) {
     console.log(Date() + ' ' + client.userId + ' disconnected.');
   });
 });
-
+*/
 
 app.get('/', function (req, res) {
   res.sendfile(__dirname + '/index.html');
@@ -45,11 +40,24 @@ app.get('/0.9.15.min.js', function (req, res) {
   res.sendfile(__dirname + '/0.9.15.min.js');
 });
 
-var world = new core.World();
+function Lobby() {}
 
-function Server() {};
+Lobby.prototype.onNewClientConnect = function onNewClientConnect(client) {
+  client.userId = uuid();
+  client.emit('From server: Connection established. You are ' + client.userId);
+  console.log(Date() + ' Player ' + client.userId + ' connected.');
+};
 
-Server.prototype.onNewClientConnect = function onNewClientConnect() {
+Lobby.prototype.onClientDisconnect = function onNewClientDisconnect() {
 
 };
 
+sio.configure(function() {
+  sio.set('authorization', function(handshakeData, callback) {
+    callback(null, true);
+  });
+
+  sio.set('log_level', 1);
+});
+
+sio.sockets.on('connection', lobby.onNewClientConnect);
