@@ -30,7 +30,7 @@ Lobby.prototype.onNewClientConnect = function onNewClientConnect(client) {
   client.emit('From server: Connection established. You are ' + client.userId);
 
   client.on('disconnect', function() {
-    lobby.onClientDisconnect(client)
+    lobby.onClientDisconnect(client);
   });
 
   console.log(Date() + ' ' + client.userId + ' connected.');
