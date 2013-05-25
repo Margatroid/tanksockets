@@ -39,7 +39,4 @@ World.prototype.removeTankByUserId = function removeTankByUserId(userId) {
     exports.World = World;
     exports.Tank  = Tank;
   }
-  else {
-    
-  }
 })(typeof exports === 'undefined' ? this['core'] = {} : exports);
