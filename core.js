@@ -1,7 +1,7 @@
 function Tank() {
   this.hp   = 1;
-  this.x    = 0;
-  this.y    = 0;
+  this.x    = 150;
+  this.y    = 150;
 }
 
 function World() {

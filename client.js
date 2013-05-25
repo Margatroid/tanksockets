@@ -34,9 +34,8 @@ function Graphics() {
 
 Graphics.prototype.init = function init(world) {
   this.canvas = new fabric.Canvas('canvas', { backgroundColor: '#EDE3BB' });
-  $(this.canvas.getElement()).width(world.size.x).height(world.size.y);
-
-  this.canvas.renderAll();
+  this.canvas.setHeight(world.size.x);
+  this.canvas.setWidth(world.size.y);
 };
 
 Graphics.prototype.setupTanks = function setupTanks() {
@@ -48,7 +47,10 @@ Graphics.prototype.setupTanks = function setupTanks() {
     }
 
     that.addFabricTank(tank);
+    that.canvas.add(tank.fabric);
   });
+
+  this.canvas.renderAll();
 };
 
 Graphics.prototype.addFabricTank = function addFabricTank(tank) {
