@@ -9,7 +9,7 @@ Connection.prototype.connect = function connect() {
 
   this.socket.on('onNewClientConnect', function(data) {
     console.log('Connected to server. UUID: ' + data.userId);
-    this.userId = data.userId;
+    that.userId = data.userId;
   });
 
   this.socket.on('sendTankAndWorldTo', function(data) {
@@ -22,10 +22,12 @@ Connection.prototype.connect = function connect() {
 Connection.prototype.getTankAndWorld = function getTankAndWorld(data) {
   console.log('Getting tank and world from server...');
   graphics.init(data.world);
+  world = data.world;
+
+  graphics.setupTanks();
 };
 
 // Graphics object.
-
 function Graphics() {
   this.canvas = {};
 }
@@ -35,6 +37,18 @@ Graphics.prototype.init = function init(world) {
   $(this.canvas.getElement()).width(world.size.x).height(world.size.y);
 
   this.canvas.renderAll();
+};
+
+Graphics.prototype.setupTanks = function setupTanks() {
+  var that = this;
+
+  world.tanks.forEach(function(tank) {
+    if (connection.userId == tank.userId) {
+      world.ownTank = tank;
+    }
+
+    that.addFabricTank(tank);
+  });
 };
 
 Graphics.prototype.addFabricTank = function addFabricTank(tank) {
@@ -74,6 +88,7 @@ Graphics.prototype.setupTurretRotation = function(tank) {
 var connection;
 var proto    = Object.getPrototypeOf;
 var graphics = new Graphics();
+var world    = {};
 
 $(document).ready(function() {
   connection = new Connection();
