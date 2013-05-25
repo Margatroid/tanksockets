@@ -58,7 +58,7 @@ Graphics.prototype.addFabricTank = function addFabricTank(tank) {
   tank.fabricGun = this.getFabricGun();
 
   var attributes  = { left: tank.x, top: tank.y };
-  tank.fabric = fabric.Group([ hull, tank.fabricGun ], attributes);
+  tank.fabric = new fabric.Group([ hull, tank.fabricGun ], attributes);
 };
 
 Graphics.prototype.getFabricGun = function getFabricGun() {
@@ -71,7 +71,7 @@ Graphics.prototype.getFabricGun = function getFabricGun() {
     { top: 10, height: 20, opacity: 0 }
   );
 
-  return fabric.Group([ mainGun, mainGunCounterBalance ]);
+  return new fabric.Group([ mainGun, mainGunCounterBalance ]);
 };
 
 Graphics.prototype.setupTurretRotation = function(tank) {
