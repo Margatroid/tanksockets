@@ -6,14 +6,26 @@ var app  = require('express')(),
 
 var core = require('./core');
 
-var world = new core.World();
+var world     = new core.World();
+world.clients = [];
+
 var lobby = new Lobby();
+
+core.World.prototype.announceTanksToClients = function announceTanks() {
+  this.clients.forEach(function(client){
+    client.emit('announceTanksToClients', this.tanks);
+  });
+};
+
+core.World.prototype.gameLoopCallback = function gameLoopCallback() {
+  this.announceTanksToClients();
+};
 
 function Lobby() {}
 
 Lobby.prototype.onNewClientConnect = function onNewClientConnect(client) {
   client.userId = uuid();
-  client.emit('From server: Connection established. You are ' + client.userId);
+  client.emit('onNewClientConnect', { userId: client.userId });
 
   client.on('disconnect', function() {
     lobby.onClientDisconnect(client);
@@ -25,6 +37,8 @@ Lobby.prototype.onNewClientConnect = function onNewClientConnect(client) {
   client.tank = newTank;
 
   console.log(Date() + ' ' + client.userId + ' connected.');
+
+  world.gameLoop();
 };
 
 Lobby.prototype.onClientDisconnect = function onNewClientDisconnect(client) {

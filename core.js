@@ -15,15 +15,21 @@ function Tank() {
 function World() {
   this.tanks = [];
   this.size  = { x: 1200, y: 800 };
+  var self   = this;
+
+  this.interval = setInterval(function(){ self.gameLoop(self) }, 2000);
 }
 
 World.prototype.addTank = function(tank) {
   this.tanks.push(tank);
 };
 
-World.prototype.getDefaultStartingPos = function() {
-  return { x: 600, y: 300 };
+World.prototype.gameLoop = function(self) {
+  // Run loop code specific to client or server.
+  self.gameLoopCallback();
 };
+
+World.prototype.gameLoopCallback = function gameLoopCallback(){};
 
 World.prototype.removeTankByUserId = function removeTankByUserId(userId) {
   for (var index in this.tanks) {

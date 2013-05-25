@@ -29,12 +29,13 @@ function Connection() {
 
 Connection.prototype.connect = function() {
   this.socket = io.connect('/');
-  this.uuid;
+  this.userId = {};
 
   this.socket.on('onconnected', function(data) {
-    console.log('Connected to server. UUID: ' + data.id);
-    this.uuid = data.id;
+    console.log('Connected to server. UUID: ' + data.userId);
+    this.userId = data.userId;
 
+    /*
     // Temporary code to init a tank from a new player.
     graphics.init();
 
@@ -44,7 +45,14 @@ Connection.prototype.connect = function() {
     clientWorld.addTank(tank);
     
     tank.addTankToCanvas(tank);
+    */
   });
+
+  this.socket.on('announceTanksToClients', function(data) {
+    console.log(data);
+  });
+
+  this.socket.on('')
 };
 
 // Graphics object.
@@ -57,17 +65,17 @@ Graphics.prototype.init = function init() {
   this.canvas = new fabric.Canvas('canvas', { backgroundColor: '#EDE3BB' });
 };
 
-Graphics.prototype.buildFabricTank() = function buildFabricTank(tank) {
+Graphics.prototype.addFabricTank = function addFabricTank(tank) {
     // Shape the hull of the tank.
   var hull = new fabric.Rect({ fill: 'red', width: 20, height: 30 });
 
-  var fabricGun = this.buildFabricGun();
+  tank.fabricGun = this.getFabricGun();
 
   var attributes  = { left: tank.x, top: tank.y };
-  return fabric.Group([ hull, fabricGun ], attributes);
+  tank.fabric = fabric.Group([ hull, tank.fabricGun ], attributes);
 }
 
-Graphics.prototype.buildFabricGun() = function buildFabricGun() {
+Graphics.prototype.getFabricGun = function getFabricGun() {
   // Shape gun, along with invisible counterbalance gun to allow pivoting.
   var mainGun = new fabric.Rect(
     { top: -10, width: 5, height: 20, fill: 'black' }
@@ -77,18 +85,18 @@ Graphics.prototype.buildFabricGun() = function buildFabricGun() {
     { top: 10, height: 20, opacity: 0 }
   );
 
-  var gun = fabric.Group([ mainGun, mainGunCounterBalance ]);
+  return fabric.Group([ mainGun, mainGunCounterBalance ]);
 };
 
-Graphics.prototype.setupTurretRotation = function() {
-  graphics.canvas.on('mouse:move', function(options) {
+Graphics.prototype.setupTurretRotation = function(tank) {
+  this.canvas.on('mouse:move', function(options) {
     var pointer = graphics.canvas.getPointer(options.e);
     var radians = Math.atan2(pointer.y - that.y, pointer.x - that.x);
     var angle   = (radians * 180 / Math.PI) + 90;
 
-    that.fabricGun.rotate(angle);
+    tank.fabricGun.rotate(angle);
     graphics.canvas.renderAll();
-  })
+  });
 };
 
 var connection;
