@@ -38,7 +38,7 @@ Lobby.prototype.onNewClientConnect = function onNewClientConnect(client) {
 
   console.log(Date() + ' ' + client.userId + ' connected.');
 
-  world.gameLoop();
+  world.gameLoop(world);
 };
 
 Lobby.prototype.onClientDisconnect = function onNewClientDisconnect(client) {
