@@ -6,7 +6,7 @@ function Tank() {
 
 function World() {
   this.tanks = [];
-  this.size  = { x: 1200, y: 800 };
+  this.size  = { x: 500, y: 500 };
   var self   = this;
 
   this.interval = setInterval(function(){ self.gameLoop(self); }, 2000);

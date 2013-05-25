@@ -31,7 +31,6 @@ Lobby.prototype.onNewClientConnect = function onNewClientConnect(client) {
     lobby.onClientDisconnect(client);
   });
 
-  
   var newTank = new core.Tank();
   newTank.userId = client.userId;
   world.addTank(newTank);

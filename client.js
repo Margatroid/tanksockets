@@ -1,28 +1,3 @@
-// ClientTank object.
-
-function ClientTank(player) {
-  proto(ClientTank.prototype).constructor.call(this, player);
-
-  this.fabricTank;
-  this.fabricGun;
-}
-
-ClientTank.prototype   = Object.create(Tank.prototype);
-ClientTank.constructor = ClientTank;
-
-ClientTank.prototype.getCanvasObjectFromTank = function(tank) {
-
-};
-
-ClientTank.prototype.addTankToCanvas = function(tank) {
-  this.getCanvasObjectFromTank(tank);
-  this.setupTurretRotation();
-
-  graphics.canvas.add(this.fabricTank);
-};
-
-// Connection object.
-
 function Connection() {
   this.socket = {};
 }
@@ -35,21 +10,6 @@ Connection.prototype.connect = function connect() {
   this.socket.on('onNewClientConnect', function(data) {
     console.log('Connected to server. UUID: ' + data.userId);
     this.userId = data.userId;
-
-    // Ask server for a tank and world after connection has been established.
-    that.getTankAndWorld();
-
-    /*
-    // Temporary code to init a tank from a new player.
-    graphics.init();
-
-    var player = new Player(this.uuid);
-    var tank   = new ClientTank(player);
-
-    clientWorld.addTank(tank);
-    
-    tank.addTankToCanvas(tank);
-    */
   });
 
   this.socket.on('sendTankAndWorldTo', function(data) {
@@ -61,7 +21,7 @@ Connection.prototype.connect = function connect() {
 
 Connection.prototype.getTankAndWorld = function getTankAndWorld(data) {
   console.log('Getting tank and world from server...');
-  console.log(data);
+  graphics.init(data.world);
 };
 
 // Graphics object.
@@ -70,8 +30,11 @@ function Graphics() {
   this.canvas = {};
 }
 
-Graphics.prototype.init = function init() {
+Graphics.prototype.init = function init(world) {
   this.canvas = new fabric.Canvas('canvas', { backgroundColor: '#EDE3BB' });
+  $(this.canvas.getElement()).width(world.size.x).height(world.size.y);
+
+  this.canvas.renderAll();
 };
 
 Graphics.prototype.addFabricTank = function addFabricTank(tank) {
