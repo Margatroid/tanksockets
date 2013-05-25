@@ -27,13 +27,17 @@ function Connection() {
   this.socket = {};
 }
 
-Connection.prototype.connect = function() {
+Connection.prototype.connect = function connect() {
   this.socket = io.connect('/');
   this.userId = {};
+  var that    = this;
 
-  this.socket.on('onconnected', function(data) {
+  this.socket.on('onNewClientConnect', function(data) {
     console.log('Connected to server. UUID: ' + data.userId);
     this.userId = data.userId;
+
+    // Ask server for a tank and world after connection has been established.
+    that.getTankAndWorld();
 
     /*
     // Temporary code to init a tank from a new player.
@@ -48,11 +52,16 @@ Connection.prototype.connect = function() {
     */
   });
 
-  this.socket.on('announceTanksToClients', function(data) {
-    console.log(data);
+  this.socket.on('sendTankAndWorldTo', function(data) {
+    that.getTankAndWorld(data);
   });
 
-  this.socket.on('')
+  this.socket.on('announceTanksToClients', function(data) {});
+};
+
+Connection.prototype.getTankAndWorld = function getTankAndWorld(data) {
+  console.log('Getting tank and world from server...');
+  console.log(data);
 };
 
 // Graphics object.
@@ -73,7 +82,7 @@ Graphics.prototype.addFabricTank = function addFabricTank(tank) {
 
   var attributes  = { left: tank.x, top: tank.y };
   tank.fabric = fabric.Group([ hull, tank.fabricGun ], attributes);
-}
+};
 
 Graphics.prototype.getFabricGun = function getFabricGun() {
   // Shape gun, along with invisible counterbalance gun to allow pivoting.

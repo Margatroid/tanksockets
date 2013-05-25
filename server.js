@@ -31,14 +31,23 @@ Lobby.prototype.onNewClientConnect = function onNewClientConnect(client) {
     lobby.onClientDisconnect(client);
   });
 
+  
   var newTank = new core.Tank();
   newTank.userId = client.userId;
   world.addTank(newTank);
   client.tank = newTank;
 
+  sendTankAndWorldTo(client);
+
   console.log(Date() + ' ' + client.userId + ' connected.');
 
   world.gameLoop(world);
+};
+
+// lol scope
+var sendTankAndWorldTo = function sendTankAndWorldTo(client) {
+  var tankAndWorld = { tank: client.tank, world: world };
+  client.emit('sendTankAndWorldTo', tankAndWorld);
 };
 
 Lobby.prototype.onClientDisconnect = function onNewClientDisconnect(client) {
