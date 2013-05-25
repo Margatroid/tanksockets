@@ -61,6 +61,8 @@ Graphics.prototype.addFabricTank = function addFabricTank(tank) {
 
   var attributes  = { left: tank.x, top: tank.y };
   tank.fabric = new fabric.Group([ hull, tank.fabricGun ], attributes);
+
+  this.setupTurretRotation(tank);
 };
 
 Graphics.prototype.getFabricGun = function getFabricGun() {
@@ -79,7 +81,7 @@ Graphics.prototype.getFabricGun = function getFabricGun() {
 Graphics.prototype.setupTurretRotation = function(tank) {
   this.canvas.on('mouse:move', function(options) {
     var pointer = graphics.canvas.getPointer(options.e);
-    var radians = Math.atan2(pointer.y - that.y, pointer.x - that.x);
+    var radians = Math.atan2(pointer.y - tank.y, pointer.x - tank.x);
     var angle   = (radians * 180 / Math.PI) + 90;
 
     tank.fabricGun.rotate(angle);
