@@ -70,20 +70,20 @@ app.get('/', function (req, res) {
   res.sendfile(__dirname + '/index.html');
 });
 
-app.get('/core.js', function (req, res) {
-  res.sendfile(__dirname + '/core.js');
-});
+// Routes.
+app.get('*', function(req,res) {
+  var files
+    = ['/core.js', '/client.js', '/style.css', '/fabric-0.9.15.min.js'];
 
-app.get('/client.js', function (req, res) {
-  res.sendfile(__dirname + '/client.js');
-});
+  var path = req.params[0];
 
-app.get('/style.css', function (req,res) {
-  res.sendfile(__dirname + '/style.css');
-});
-
-app.get('/0.9.15.min.js', function (req, res) {
-  res.sendfile(__dirname + '/0.9.15.min.js');
+  if (files.indexOf(path) > -1) {
+    res.sendfile(__dirname + path);
+  } else if (path == '/') {
+    res.sendfile(__dirname + '/index.html');
+  } else {
+    res.status(404).send('Not found');
+  }
 });
 
 server.listen(3000);
