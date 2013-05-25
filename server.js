@@ -82,7 +82,7 @@ app.get('*', function(req,res) {
   } else if (path == '/') {
     res.sendfile(__dirname + '/index.html');
   } else {
-    res.status(404).send('Not found');
+    res.status(404).send('Error 404: Not found');
   }
 });
 
