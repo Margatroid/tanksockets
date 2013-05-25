@@ -1,11 +1,3 @@
-(function(exports){
-  if(typeof window === 'undefined') {
-  }
-  else {
-  }
-})(typeof exports === 'undefined' ? this['core'] = {} : exports);
-
-
 function Tank() {
   this.hp   = 1;
   this.x    = 0;
@@ -42,5 +34,12 @@ World.prototype.removeTankByUserId = function removeTankByUserId(userId) {
   this.tanks = this.tanks.filter(function(n){ return n; });
 };
 
-exports.World = World;
-exports.Tank  = Tank;
+(function(exports){
+  if(typeof window === 'undefined') {
+    exports.World = World;
+    exports.Tank  = Tank;
+  }
+  else {
+    
+  }
+})(typeof exports === 'undefined' ? this['core'] = {} : exports);
