@@ -20,7 +20,6 @@ Connection.prototype.connect = function connect() {
 };
 
 Connection.prototype.getTankAndWorld = function getTankAndWorld(data) {
-  console.log('Getting tank and world from server...');
   graphics.init(data.world);
   world = data.world;
 
@@ -42,8 +41,11 @@ Graphics.prototype.setupTanks = function setupTanks() {
   var that = this;
 
   world.tanks.forEach(function(tank) {
+    tank.__proto__ = Tank.prototype;
+
     if (connection.userId == tank.userId) {
       world.ownTank = tank;
+      tank.setupControls();
     }
 
     that.addFabricTank(tank);
@@ -89,8 +91,17 @@ Graphics.prototype.setupTurretRotation = function(tank) {
   });
 };
 
+Tank.prototype.setupControls = function setupControls() {
+  $(document).keydown(function(event) {
+    
+  });
+
+  $(document).keyup(function(event) {
+    
+  });
+};
+
 var connection;
-var proto    = Object.getPrototypeOf;
 var graphics = new Graphics();
 var world    = {};
 

@@ -12,6 +12,15 @@ function World() {
   this.interval = setInterval(function(){ self.gameLoop(self); }, 2000);
 }
 
+Tank.prototype.move = function(direction) {
+  switch(direction) {
+    case 'n': this.y -= 1; break;
+    case 's': this.y += 1; break;
+    case 'w': this.x -= 1; break;
+    case 'e': this.x += 1; break;
+  }
+};
+
 World.prototype.addTank = function(tank) {
   this.tanks.push(tank);
 };
