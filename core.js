@@ -1,7 +1,9 @@
 function Tank() {
-  this.hp   = 1;
-  this.x    = 150;
-  this.y    = 150;
+  this.hp        = 1;
+  this.x         = 150;
+  this.y         = 150;
+  this.direction = 'n';
+  this.isMoving  = false;
 }
 
 function World() {
@@ -9,28 +11,39 @@ function World() {
   this.size  = { x: 500, y: 500 };
   var self   = this;
 
-  this.interval = setInterval(function(){ self.gameLoop(self); }, 2000);
-}
+  var lastLoopTime = new Date();
 
-Tank.prototype.move = function(direction) {
-  switch(direction) {
-    case 'n': this.y -= 1; break;
-    case 's': this.y += 1; break;
-    case 'w': this.x -= 1; break;
-    case 'e': this.x += 1; break;
-  }
-};
+  this.interval = setInterval(function(){ self.gameLoop(self); }, 100);
+}
 
 World.prototype.addTank = function(tank) {
   this.tanks.push(tank);
 };
 
 World.prototype.gameLoop = function(self) {
+  self.moveTanks(self);
+
   // Run loop code specific to client or server.
   self.gameLoopCallback();
 };
 
 World.prototype.gameLoopCallback = function gameLoopCallback(){};
+
+World.prototype.moveTanks = function moveTanks(self) {
+  var tanks = self.tanks;
+
+  tanks.forEach(function(tank) {
+    if (tank.isMoving) {
+      var speed    = 50;
+      var distance = speed * ((new Date() - self.lastLoopTime) / 1000);
+
+      switch (tank.direction) {
+        case 'n': this.y -= distance; break;
+        case 's': this.y += distance; break;
+        case 'w': this.x -= distance; break;
+        case 'e': this.x += distance; break;
+  });
+};
 
 World.prototype.removeTankByUserId = function removeTankByUserId(userId) {
   for (var index in this.tanks) {
