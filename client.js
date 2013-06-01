@@ -92,12 +92,20 @@ Graphics.prototype.setupTurretRotation = function(tank) {
 };
 
 Tank.prototype.setupControls = function setupControls() {
+  var tank             = this;
+  var movementKeycodes = { 87: 'n', 65: 'w', 83: 's', 68: 'e' };
+
   $(document).keydown(function(event) {
-    
+    tank.isMoving = true;
+
+    var keycode = event.which;
+    if (typeof movementKeycodes[keycode] === 'string') {
+      tank.direction = movementKeycodes[keycode];
+    }
   });
 
   $(document).keyup(function(event) {
-    
+    tank.isMoving = false;
   });
 };
 
