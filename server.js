@@ -6,19 +6,16 @@ var app  = require('express')(),
 
 var core = require('./core');
 
-var world     = new core.World();
-world.clients = [];
+var world   = new core.World();
+var clients = [];// @TODO Move this somewhere more logical.
 
 var lobby = new Lobby();
 
-core.World.prototype.announceTanksToClients = function announceTanks() {
-  this.clients.forEach(function(client){
-    client.emit('announceTanksToClients', this.tanks);
+core.World.prototype.sendToClients = function sendToClients(signalName, data) {
+  clients.forEach(function(client) {
+    client.emit(signalName, data);
   });
-};
 
-core.World.prototype.gameLoopCallback = function gameLoopCallback() {
-  this.announceTanksToClients();
 };
 
 function Lobby() {}
@@ -33,28 +30,51 @@ Lobby.prototype.onNewClientConnect = function onNewClientConnect(client) {
 
   var newTank = new core.Tank();
   newTank.userId = client.userId;
+
   world.addTank(newTank);
   client.tank = newTank;
 
-  sendTankAndWorldTo(client);
+  world.sendTankAndWorldTo(client);
+  lobby.handleClientReq(client);
+
+  clients.push(client);
 
   console.log(Date() + ' ' + client.userId + ' connected.');
-
-  world.gameLoop(world);
 };
 
-// lol scope
-var sendTankAndWorldTo = function sendTankAndWorldTo(client) {
+Lobby.prototype.handleClientReq = function handleClientReq(client) {
+  client.on('onStartButtonClick', world.startGameLoop);
+};
+
+core.World.prototype.startGameLoop = function startGameLoop() {
+  world.startLoop();
+  world.sendToClients('startGameLoop', world.tanks);
+};
+
+core.World.prototype.sendTankAndWorldTo = function sendTankAndWorldTo(client) {
+  console.log(world);
   var tankAndWorld = { tank: client.tank, world: world };
+
   client.emit('sendTankAndWorldTo', tankAndWorld);
 };
 
 Lobby.prototype.onClientDisconnect = function onNewClientDisconnect(client) {
   console.log(Date() + ' ' + client.userId + ' disconnected.');
   world.removeTankByUserId(client.tank.userId);
-  console.log('Tanks remaining: ');
-  console.log(world.tanks);
+  world.removeClientByUserId(client.tank.userId);
 };
+
+core.World.prototype.removeClientByUserId =
+  function removeClientByUserId(userId) {
+    for (var index in clients) {
+      if (clients[index].userId == userId) {
+        delete clients[index];
+      }
+    }
+
+    // Empty array of empty elements.
+    clients = clients.filter(function(n){ return n; });
+  };
 
 sio.configure(function() {
   sio.set('authorization', function(handshakeData, callback) {

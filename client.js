@@ -10,18 +10,30 @@ Connection.prototype.connect = function connect() {
   this.socket.on('onNewClientConnect', function(data) {
     console.log('Connected to server. UUID: ' + data.userId);
     that.userId = data.userId;
+    that.setupControls();
   });
 
   this.socket.on('sendTankAndWorldTo', function(data) {
     that.getTankAndWorld(data);
   });
 
-  this.socket.on('announceTanksToClients', function(data) {});
+  this.socket.on('startGameLoop', this.startGameLoop);
+};
+
+Connection.prototype.startGameLoop = function startGameLoop(tanks) {
+  world.tanks = tanks;
+
+  // Draw each tank from server.
+  graphics.setupTanks();
+
+  world.startLoop();
 };
 
 Connection.prototype.getTankAndWorld = function getTankAndWorld(data) {
   graphics.init(data.world);
   world = data.world;
+
+  world.__proto__ = World.prototype;
 
   graphics.setupTanks();
 };
@@ -30,6 +42,11 @@ Connection.prototype.getTankAndWorld = function getTankAndWorld(data) {
 function Graphics() {
   this.canvas = {};
 }
+
+Connection.prototype.setupControls = function setupControls() {
+  var socket = this.socket;
+  $('#start').click(function(){ socket.emit('onStartButtonClick'); });
+};
 
 Graphics.prototype.init = function init(world) {
   this.canvas = new fabric.Canvas('canvas', { backgroundColor: '#EDE3BB' });
@@ -92,21 +109,26 @@ Graphics.prototype.setupTurretRotation = function(tank) {
 };
 
 Tank.prototype.setupControls = function setupControls() {
-  var tank             = this;
+  var tank             = world.ownTank;
   var movementKeycodes = { 87: 'n', 65: 'w', 83: 's', 68: 'e' };
 
   $(document).keydown(function(event) {
     tank.isMoving = true;
-
+    console.log(tank);
     var keycode = event.which;
     if (typeof movementKeycodes[keycode] === 'string') {
       tank.direction = movementKeycodes[keycode];
+      console.log('Changing tank direction to ' + tank.direction);
     }
   });
 
   $(document).keyup(function(event) {
-    tank.isMoving = false;
+    //tank.isMoving = false;
   });
+};
+
+World.prototype.gameLoopCallback = function gameLoopCallback() {
+  graphics.canvas.renderAll();
 };
 
 var connection;

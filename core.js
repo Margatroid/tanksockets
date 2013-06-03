@@ -9,12 +9,14 @@ function Tank() {
 function World() {
   this.tanks = [];
   this.size  = { x: 500, y: 500 };
-  var self   = this;
 
-  var lastLoopTime = new Date();
-
-  this.interval = setInterval(function(){ self.gameLoop(self); }, 100);
+  this.lastLoopTime = new Date();
 }
+
+World.prototype.startLoop = function startLoop() {
+  var self      = this;
+  this.interval = setInterval(function(){ self.gameLoop(self); }, 1000);
+};
 
 World.prototype.addTank = function(tank) {
   this.tanks.push(tank);
@@ -36,12 +38,16 @@ World.prototype.moveTanks = function moveTanks(self) {
     if (tank.isMoving) {
       var speed    = 50;
       var distance = speed * ((new Date() - self.lastLoopTime) / 1000);
-
+      console.log('new Date() = ' + new Date());
+      console.log('self.lastLoopTime = ' + self.lastLoopTime);
+      console.log('self.lastLoopTime: ' + Math.abs(new Date() - self.lastLoopTime.getTime()));
       switch (tank.direction) {
-        case 'n': this.y -= distance; break;
-        case 's': this.y += distance; break;
-        case 'w': this.x -= distance; break;
-        case 'e': this.x += distance; break;
+        case 'n': tank.y -= distance; break;
+        case 's': tank.y += distance; break;
+        case 'w': tank.x -= distance; break;
+        case 'e': tank.x += distance; break;
+      }
+    }
   });
 };
 
