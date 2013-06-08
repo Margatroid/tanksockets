@@ -128,17 +128,61 @@ Graphics.prototype.moveFabricTanks = function() {
 Tank.prototype.setupControls = function setupControls() {
   var tank             = world.ownTank;
   var movementKeycodes = { 87: 'n', 65: 'w', 83: 's', 68: 'e' };
+  var pressed          = { 'n': false, 'w': false, 's': false, 'e': false };
+
+  var checkAnyMovementKeyPressed = function checkAnyMovementKeyPressed() {
+    for (var key in pressed) {
+      if (pressed[key]) {
+        return true;
+      }
+    }
+
+    return false;
+  };
+
+  var changeDirection = function changeDirection() {
+    if (pressed['n'] && pressed['e']) {
+      tank.direction = 'ne';
+    } else if (pressed['e'] && pressed['s']) {
+      tank.direction = 'se';
+    } else if (pressed['s'] && pressed['w']) {
+      tank.direction = 'sw';
+    } else if (pressed['w'] && pressed['n']) {
+      tank.direction = 'nw';
+    } else {
+
+      var getDirection = function getDirection() {
+        for (var key in pressed) {
+          if (pressed[key]) { return key; }
+        }
+        return 'n';
+      };
+
+      tank.direction = getDirection();
+    }
+  };
 
   $(document).keydown(function(event) {
-    tank.isMoving = true;
     var keycode = event.which;
+
+    // Verify keycode represents a directional key.
     if (typeof movementKeycodes[keycode] === 'string') {
-      tank.direction = movementKeycodes[keycode];
+      tank.isMoving                      = true;
+      pressed[movementKeycodes[keycode]] = true;
+      changeDirection();
     }
   });
 
   $(document).keyup(function(event) {
-    tank.isMoving = false;
+    var keycode = event.which;
+
+    // Verify keycode represents a directional key.
+    if (typeof movementKeycodes[keycode] === 'string') {
+      pressed[movementKeycodes[keycode]] = false;
+    }
+
+    changeDirection();
+    tank.isMoving = checkAnyMovementKeyPressed();
   });
 };
 

@@ -40,10 +40,14 @@ World.prototype.moveTanks = function moveTanks(self) {
       var speed    = 50;
       var distance = speed * ((new Date() - self.lastLoopTime) / 1000);
       switch (tank.direction) {
-        case 'n': tank.y -= distance; break;
-        case 's': tank.y += distance; break;
-        case 'w': tank.x -= distance; break;
-        case 'e': tank.x += distance; break;
+        case 'n':  tank.y -= distance; break;
+        case 'ne': tank.x += distance / 2; tank.y -= distance / 2; break;
+        case 'nw': tank.x -= distance; tank.y -= distance; break;
+        case 's':  tank.y += distance; break;
+        case 'se': tank.x += distance; tank.y += distance; break;
+        case 'sw': tank.x -= distance; tank.y += distance; break;
+        case 'w':  tank.x -= distance; break;
+        case 'e':  tank.x += distance; break;
       }
     }
   });
