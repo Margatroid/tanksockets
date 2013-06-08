@@ -119,11 +119,9 @@ Tank.prototype.setupControls = function setupControls() {
 
   $(document).keydown(function(event) {
     tank.isMoving = true;
-    console.log(tank);
     var keycode = event.which;
     if (typeof movementKeycodes[keycode] === 'string') {
       tank.direction = movementKeycodes[keycode];
-      console.log('Changing tank direction to ' + tank.direction);
     }
   });
 

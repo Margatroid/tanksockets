@@ -52,7 +52,6 @@ core.World.prototype.startGameLoop = function startGameLoop() {
 };
 
 core.World.prototype.sendTankAndWorldTo = function sendTankAndWorldTo(client) {
-  console.log(world);
   var tankAndWorld = { tank: client.tank, world: world };
 
   client.emit('sendTankAndWorldTo', tankAndWorld);
