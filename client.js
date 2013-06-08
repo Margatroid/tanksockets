@@ -20,9 +20,7 @@ Connection.prototype.connect = function connect() {
   this.socket.on('startGameLoop', this.startGameLoop);
 };
 
-Connection.prototype.startGameLoop = function startGameLoop(tanks) {
-  world.tanks = tanks;
-
+Connection.prototype.startGameLoop = function startGameLoop() {
   // Draw each tank from server.
   graphics.setupTanks();
 
@@ -34,6 +32,7 @@ Connection.prototype.getTankAndWorld = function getTankAndWorld(data) {
   world = data.world;
 
   world.__proto__ = World.prototype;
+  world.lastLoopTime = new Date();
 
   graphics.setupTanks();
 };
@@ -108,6 +107,12 @@ Graphics.prototype.setupTurretRotation = function(tank) {
   });
 };
 
+Graphics.prototype.moveFabricTanks = function() {
+  world.tanks.forEach(function(tank) {
+    tank.fabric.set({ left: tank.x, top: tank.y });
+  });
+};
+
 Tank.prototype.setupControls = function setupControls() {
   var tank             = world.ownTank;
   var movementKeycodes = { 87: 'n', 65: 'w', 83: 's', 68: 'e' };
@@ -128,6 +133,8 @@ Tank.prototype.setupControls = function setupControls() {
 };
 
 World.prototype.gameLoopCallback = function gameLoopCallback() {
+  // Set left and top of tanks after core has changed their coordinates.
+  graphics.moveFabricTanks();
   graphics.canvas.renderAll();
 };
 

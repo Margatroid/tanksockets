@@ -11,6 +11,7 @@ function World() {
   this.size  = { x: 500, y: 500 };
 
   this.lastLoopTime = new Date();
+  console.log('Just set last loop time: ' + this.lastLoopTime);
 }
 
 World.prototype.startLoop = function startLoop() {
@@ -24,6 +25,7 @@ World.prototype.addTank = function(tank) {
 
 World.prototype.gameLoop = function(self) {
   self.moveTanks(self);
+  self.lastLoopTime = new Date();
 
   // Run loop code specific to client or server.
   self.gameLoopCallback();
@@ -38,15 +40,14 @@ World.prototype.moveTanks = function moveTanks(self) {
     if (tank.isMoving) {
       var speed    = 50;
       var distance = speed * ((new Date() - self.lastLoopTime) / 1000);
-      console.log('new Date() = ' + new Date());
-      console.log('self.lastLoopTime = ' + self.lastLoopTime);
-      console.log('self.lastLoopTime: ' + Math.abs(new Date() - self.lastLoopTime.getTime()));
+      console.log('Distance: ' + distance);
       switch (tank.direction) {
         case 'n': tank.y -= distance; break;
         case 's': tank.y += distance; break;
         case 'w': tank.x -= distance; break;
         case 'e': tank.x += distance; break;
       }
+      console.log('Tank X: ' + tank.x + ' Tank Y: ' + tank.y);
     }
   });
 };
