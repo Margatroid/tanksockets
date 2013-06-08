@@ -138,7 +138,7 @@ Tank.prototype.setupControls = function setupControls() {
   });
 
   $(document).keyup(function(event) {
-    //tank.isMoving = false;
+    tank.isMoving = false;
   });
 };
 
