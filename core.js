@@ -15,7 +15,7 @@ function World() {
 
 World.prototype.startLoop = function startLoop() {
   var self      = this;
-  this.interval = setInterval(function(){ self.gameLoop(self); }, 1000);
+  this.interval = setInterval(function(){ self.gameLoop(self); }, 20);
 };
 
 World.prototype.addTank = function(tank) {
