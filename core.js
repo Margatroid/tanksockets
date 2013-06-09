@@ -4,6 +4,7 @@ function Tank() {
   this.y         = 150;
   this.direction = 'n';
   this.isMoving  = false;
+  this.world     = {};
 }
 
 function World() {
@@ -11,6 +12,10 @@ function World() {
   this.size  = { x: 500, y: 500 };
 
   this.lastLoopTime = new Date();
+}
+
+function Vector(components) {
+  this.components = components;
 }
 
 World.prototype.startLoop = function startLoop() {
@@ -37,20 +42,42 @@ World.prototype.moveTanks = function moveTanks(self) {
 
   tanks.forEach(function(tank) {
     if (tank.isMoving) {
-      var speed    = 50;
-      var distance = speed * ((new Date() - self.lastLoopTime) / 1000);
-      switch (tank.direction) {
-        case 'n':  tank.y -= distance; break;
-        case 'ne': tank.x += distance / 2; tank.y -= distance / 2; break;
-        case 'nw': tank.x -= distance; tank.y -= distance; break;
-        case 's':  tank.y += distance; break;
-        case 'se': tank.x += distance; tank.y += distance; break;
-        case 'sw': tank.x -= distance; tank.y += distance; break;
-        case 'w':  tank.x -= distance; break;
-        case 'e':  tank.x += distance; break;
-      }
+      tank.move(self.lastLoopTime);
     }
   });
+};
+
+Tank.prototype.move = function move(lastLoopTime) {
+  /*
+  var speed    = 50;
+  var distance = speed * ((new Date() - lastLoopTime) / 1000);
+
+  switch (this.direction) {
+    case 'n':  this.y -= distance; break;
+    case 'ne': this.x += distance / 2; this.y -= distance / 2; break;
+    case 'nw': this.x -= distance; this.y -= distance; break;
+    case 's':  this.y += distance; break;
+    case 'se': this.x += distance; this.y += distance; break;
+    case 'sw': this.x -= distance; this.y += distance; break;
+    case 'w':  this.x -= distance; break;
+    case 'e':  this.x += distance; break;
+  }*/
+  var velocity = [0, 1]; // [X, Y]. Default to east.
+  switch (this.direction) {
+    case 'n':  velocity = [ 0, -1]; break;
+    case 'ne': velocity = [ 1, -1]; break;
+    case 'nw': velocity = [-1, -1]; break;
+    case 's':  velocity = [ 0,  1]; break;
+    case 'se': velocity = [ 1,  1]; break;
+    case 'sw': velocity = [-1,  1]; break;
+    case 'w':  velocity = [-1,  0]; break;
+  }
+
+  console.log([this.x, this.y]);
+  var result = new Vector([this.x, this.y]).add(new Vector(velocity));
+  console.log(result.components);
+  this.x = result.components[0];
+  this.y = result.components[1];
 };
 
 World.prototype.removeTankByUserId = function removeTankByUserId(userId) {
@@ -62,6 +89,18 @@ World.prototype.removeTankByUserId = function removeTankByUserId(userId) {
 
   // Empty array of empty elements.
   this.tanks = this.tanks.filter(function(n){ return n; });
+};
+
+Vector.prototype.add = function add(vector) {
+  console.log('THIS COMPONENTS');
+  console.log(this.components);
+  var result = [];
+  for (var i = 0; i < vector.components.length; i++) {
+    result.push(this.components[i] + vector.components[i]);
+  }
+  console.log('Finished adding vector yo');
+  console.log(result);
+  return new Vector(result);
 };
 
 (function(exports){
