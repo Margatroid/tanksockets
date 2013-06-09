@@ -65,9 +65,13 @@ Tank.prototype.move = function move(lastLoopTime) {
     case 'w':  velocity = [-speed,      0]; break;
   }
 
-  var result = new Vector([this.x, this.y]).add(new Vector(velocity));
-  this.x = result.components[0];
-  this.y = result.components[1];
+  var length = Math.sqrt(Math.pow(velocity[0], 2) + Math.pow(velocity[1], 2));
+
+  var normalised  = [ velocity[0] / length, velocity[1] / length ];
+  var result      = new Vector([this.x, this.y]).add(new Vector(normalised));
+
+  this.x          = result.components[0];
+  this.y          = result.components[1];
 };
 
 World.prototype.removeTankByUserId = function removeTankByUserId(userId) {
