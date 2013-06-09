@@ -50,20 +50,6 @@ World.prototype.moveTanks = function moveTanks(self) {
 };
 
 Tank.prototype.move = function move(lastLoopTime) {
-  /*
-  var speed    = 50;
-  var distance = speed * ((new Date() - lastLoopTime) / 1000);
-
-  switch (this.direction) {
-    case 'n':  this.y -= distance; break;
-    case 'ne': this.x += distance / 2; this.y -= distance / 2; break;
-    case 'nw': this.x -= distance; this.y -= distance; break;
-    case 's':  this.y += distance; break;
-    case 'se': this.x += distance; this.y += distance; break;
-    case 'sw': this.x -= distance; this.y += distance; break;
-    case 'w':  this.x -= distance; break;
-    case 'e':  this.x += distance; break;
-  }*/
   var desiredSpeed = 1;
   var speed        = desiredSpeed * ((new Date() - lastLoopTime) / LOOP_SPEED);
 
