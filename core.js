@@ -1,3 +1,5 @@
+var LOOP_SPEED = 20;
+
 function Tank() {
   this.hp        = 1;
   this.x         = 150;
@@ -20,7 +22,7 @@ function Vector(components) {
 
 World.prototype.startLoop = function startLoop() {
   var self      = this;
-  this.interval = setInterval(function(){ self.gameLoop(self); }, 20);
+  this.interval = setInterval(function(){ self.gameLoop(self); }, LOOP_SPEED);
 };
 
 World.prototype.addTank = function(tank) {
@@ -62,20 +64,22 @@ Tank.prototype.move = function move(lastLoopTime) {
     case 'w':  this.x -= distance; break;
     case 'e':  this.x += distance; break;
   }*/
-  var velocity = [0, 1]; // [X, Y]. Default to east.
+  var desiredSpeed = 1;
+  var speed        = desiredSpeed * ((new Date() - lastLoopTime) / LOOP_SPEED);
+
+  var velocity = [speed, 0]; // [X, Y]. Default to east.
+
   switch (this.direction) {
-    case 'n':  velocity = [ 0, -1]; break;
-    case 'ne': velocity = [ 1, -1]; break;
-    case 'nw': velocity = [-1, -1]; break;
-    case 's':  velocity = [ 0,  1]; break;
-    case 'se': velocity = [ 1,  1]; break;
-    case 'sw': velocity = [-1,  1]; break;
-    case 'w':  velocity = [-1,  0]; break;
+    case 'n':  velocity = [     0, -speed]; break;
+    case 'ne': velocity = [ speed, -speed]; break;
+    case 'nw': velocity = [-speed, -speed]; break;
+    case 's':  velocity = [     0,  speed]; break;
+    case 'se': velocity = [ speed,  speed]; break;
+    case 'sw': velocity = [-speed,  speed]; break;
+    case 'w':  velocity = [-speed,      0]; break;
   }
 
-  console.log([this.x, this.y]);
   var result = new Vector([this.x, this.y]).add(new Vector(velocity));
-  console.log(result.components);
   this.x = result.components[0];
   this.y = result.components[1];
 };
