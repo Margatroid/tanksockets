@@ -3,4 +3,4 @@ tanksockets
 
 Multiplayer Tank clone with HTML5 canvas and WebSockets.
 
-test 2
+test 1
